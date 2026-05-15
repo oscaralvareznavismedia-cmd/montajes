@@ -311,7 +311,7 @@ table.gantt-tbl td.wknd-c{background:rgba(255,255,255,0.01);}
       <button class="nav-btn" data-view="semestre">⊟ 6 Meses</button>
       <button class="nav-btn" data-view="proyectos">◈ Proyectos</button>
       <button class="nav-btn" data-view="trabajadores">◉ Trabajadores</button>
-      <button class="nav-btn" data-view="transportes">▷ Transportes</button>
+      <button class="nav-btn" data-view="transportes">⚙ Fabricación</button>
       <button class="nav-btn" data-view="alertas">◬ Alertas <span class="nb" id="alert-count" style="display:none">0</span></button>
     </nav>
     <div class="topbar-right">
@@ -348,7 +348,7 @@ table.gantt-tbl td.wknd-c{background:rgba(255,255,255,0.01);}
         </div>
       </div>
       <div class="panel" id="transp-week-panel">
-        <div class="panel-header"><span class="panel-title">TRANSPORTES / MATERIAL</span><button class="btn btn-primary btn-sm" onclick="openTransportModal()">+ Transporte</button></div>
+        <div class="panel-header"><span class="panel-title">FABRICACIÓN / DISEÑO</span><button class="btn btn-primary btn-sm" onclick="openTransportModal()">+ Elemento</button></div>
         <div class="panel-body" id="transp-week-body"></div>
       </div>
     </div>
@@ -432,11 +432,11 @@ table.gantt-tbl td.wknd-c{background:rgba(255,255,255,0.01);}
     <div id="view-transportes" class="view">
       <div class="panel">
         <div class="panel-header">
-          <span class="panel-title">TRANSPORTES Y MATERIAL</span>
-          <button class="btn btn-primary btn-sm" onclick="openTransportModal()">+ Transporte</button>
+          <span class="panel-title">FABRICACIÓN Y DISEÑO</span>
+          <button class="btn btn-primary btn-sm" onclick="openTransportModal()">+ Elemento</button>
         </div>
         <div class="transport-row tr-header">
-          <div>Proyecto</div><div>Fecha envío</div><div>Tránsito</div><div>Estado</div><div>Notas</div><div></div>
+          <div>Proyecto</div><div>Fecha encargo</div><div>Entrega prevista</div><div>Estado</div><div>Descripción</div><div></div>
         </div>
         <div id="transport-list"></div>
       </div>
@@ -573,23 +573,30 @@ table.gantt-tbl td.wknd-c{background:rgba(255,255,255,0.01);}
 <!-- TRANSPORTE -->
 <div class="modal-bg" id="m-transport">
   <div class="modal">
-    <div class="modal-hdr"><span class="modal-title" id="m-transport-title">NUEVO TRANSPORTE</span><button class="modal-x" onclick="closeModal('m-transport')">✕</button></div>
+    <div class="modal-hdr"><span class="modal-title" id="m-transport-title">NUEVO ELEMENTO</span><button class="modal-x" onclick="closeModal('m-transport')">✕</button></div>
     <div class="modal-body">
       <input type="hidden" id="mt-id">
       <div class="fr"><label>Proyecto</label><select id="mt-proy"></select></div>
+      <div class="fr"><label>Tipo</label>
+        <select id="mt-tipo">
+          <option value="fabricacion">Fabricación</option>
+          <option value="diseno">Diseño</option>
+          <option value="otro">Otro</option>
+        </select>
+      </div>
       <div class="fr-2">
-        <div class="fr" style="margin:0 0 12px"><label>Fecha envío</label><input type="date" id="mt-fecha"></div>
-        <div class="fr" style="margin:0 0 12px"><label>Días en tránsito</label><input type="number" id="mt-dias" min="0" max="30" value="1"></div>
+        <div class="fr" style="margin:0 0 12px"><label>Fecha de encargo</label><input type="date" id="mt-fecha"></div>
+        <div class="fr" style="margin:0 0 12px"><label>Fecha prevista entrega</label><input type="date" id="mt-fecha-entrega"></div>
       </div>
       <div class="fr"><label>Estado</label>
         <select id="mt-estado">
-          <option value="pendiente">Pendiente de solicitar</option>
-          <option value="solicitado">Solicitado</option>
-          <option value="enviado">Enviado</option>
-          <option value="recibido">Recibido en destino</option>
+          <option value="pendiente">Pendiente de encargar</option>
+          <option value="encargado">Encargado</option>
+          <option value="en_fabricacion">En fabricación / diseño</option>
+          <option value="entregado">Entregado</option>
         </select>
       </div>
-      <div class="fr"><label>Material / Notas</label><textarea id="mt-notas" placeholder="Ej. 3 palets material AV + soportes"></textarea></div>
+      <div class="fr"><label>Descripción / Notas</label><textarea id="mt-notas" placeholder="Ej. Soportes a medida, estructura metálica..."></textarea></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-danger btn-sm" id="mt-del-btn" style="display:none;margin-right:auto" onclick="deleteTransport()">Eliminar</button>
@@ -722,12 +729,12 @@ function parseComentarios(rows) {
     responsable:r[3]||'', estado:r[4]||'pendiente', fecha:r[5]||'', autor:r[6]||''
   }));
 }
-function parseTransportes(rows) {
-  return rows.slice(1).filter(r=>r[0]).map(r=>({
-    id:r[0], proyecto_id:r[1]||'', fecha_envio:r[2]||'',
-    dias_transito:parseInt(r[3])||1, estado:r[4]||'pendiente', notas:r[5]||''
-  }));
-}
+
+
+
+
+
+
 
 // ─── SERIALIZERS ────────────────────────────────
 const HDR = {
@@ -735,7 +742,7 @@ const HDR = {
   proyectos:    [['id','codigo','cliente','lugar','estado','notas']],
   fases:        [['id','proyecto_id','nombre','fecha_inicio','fecha_fin','descripcion','trabajadores','estado']],
   comentarios:  [['id','proyecto_id','texto','responsable','estado','fecha','autor']],
-  transportes:  [['id','proyecto_id','fecha_envio','dias_transito','estado','notas']]
+  transportes:  [['id','proyecto_id','tipo','fecha_envio','fecha_entrega','estado','notas']]
 };
 
 function serializeTrabajadores() {
@@ -760,7 +767,7 @@ function serializeComentarios() {
 }
 function serializeTransportes() {
   return [...HDR.transportes, ...db.transportes.map(t=>[
-    t.id,t.proyecto_id,t.fecha_envio,t.dias_transito,t.estado,t.notas
+    t.id,t.proyecto_id,t.tipo||'fabricacion',t.fecha_envio,t.fecha_entrega||'',t.estado,t.notas
   ])];
 }
 
@@ -877,7 +884,7 @@ function renderWeek() {
     <div class="kpi c-green"><div class="kpi-label">En curso</div><div class="kpi-val">${enCurso.length}</div><div class="kpi-sub">${busyIds.size} técnicos desplazados</div></div>
     <div class="kpi c-blue"><div class="kpi-label">Técnicos disponibles</div><div class="kpi-val">${disp}</div><div class="kpi-sub">de ${db.trabajadores.filter(w=>w.activo).length} en plantilla</div></div>
     <div class="kpi c-accent"><div class="kpi-label">No confirmados</div><div class="kpi-val">${db.proyectos.filter(p=>p.estado==='no_confirmado').length}</div><div class="kpi-sub">proyectos pendientes</div></div>
-    <div class="kpi c-yellow"><div class="kpi-label">Transportes pendientes</div><div class="kpi-val">${db.transportes.filter(t=>t.estado==='pendiente').length}</div><div class="kpi-sub">sin solicitar</div></div>`;
+    <div class="kpi c-yellow"><div class="kpi-label">Fabricación pendiente</div><div class="kpi-val">${db.transportes.filter(t=>t.estado==='pendiente').length}</div><div class="kpi-sub">sin encargar</div></div>`;
 
   // Get active fases this week
   const activeFases = db.fases.filter(f=>{
@@ -919,7 +926,7 @@ function renderWeek() {
         if(t.proyecto_id!==pid)return;
         const te=parseDate(t.fecha_envio);
         if(te&&te.getTime()===d.getTime()){
-          html+=`<div class="transp-chip"><span class="tdot ${t.estado}"></span>Envío</div>`;
+          html+=`<div class="transp-chip"><span class="tdot ${t.estado}"></span>${t.tipo==='diseno'?'Diseño':'Fabric.'}</div>`;
         }
       });
       html+='</td>';
@@ -935,7 +942,7 @@ function renderWeek() {
   if(tw.length===0){twb.innerHTML='<div style="color:var(--ink3);font-size:12px;font-style:italic">Sin envíos previstos esta semana.</div>';return;}
   twb.innerHTML=tw.map(t=>{
     const p=projById(t.proyecto_id);
-    const llega=t.fecha_envio?fmtShort(isoDate(addDays(parseDate(t.fecha_envio),t.dias_transito))):'-';
+    const llega=t.fecha_entrega?fmtShort(t.fecha_entrega):'-';
     const ELBL={pendiente:'⚠ Pendiente',solicitado:'→ Solicitado',enviado:'✔ Enviado',recibido:'✔✔ Recibido'};
     return `<div style="display:flex;align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;cursor:pointer" onclick="openTransportEdit('${t.id}')">
       <span class="tdot ${t.estado}" style="width:9px;height:9px"></span>
@@ -1104,14 +1111,14 @@ function renderWorkers() {
 function renderTransports() {
   const ELBL={pendiente:'⚠ Pendiente',solicitado:'→ Solicitado',enviado:'✔ Enviado',recibido:'✔✔ Recibido'};
   const el=document.getElementById('transport-list');
-  if(db.transportes.length===0){el.innerHTML='<div class="empty"><div class="empty-ico">▷</div>Sin transportes</div>';return;}
+  if(db.transportes.length===0){el.innerHTML='<div class="empty"><div class="empty-ico">▷</div>Sin elementos registrados</div>';return;}
   el.innerHTML=db.transportes.map(t=>{
     const p=projById(t.proyecto_id);
-    const llega=t.fecha_envio?fmtShort(isoDate(addDays(parseDate(t.fecha_envio),t.dias_transito))):'-';
+    const llega=t.fecha_entrega?fmtShort(t.fecha_entrega):'-';
     return `<div class="transport-row" onclick="openTransportEdit('${t.id}')">
       <div><strong>${p.cliente}</strong> <span style="color:var(--ink2)">— ${p.lugar}</span> <span style="color:var(--ink3);font-size:11px">${p.codigo}</span></div>
-      <div style="font-size:12px">${fmtShort(t.fecha_envio)}</div>
-      <div style="font-size:12px;color:var(--ink2)">~${llega}</div>
+      <div style="font-size:12px">${fmtShort(t.fecha_envio)||'—'}</div>
+      <div style="font-size:12px;color:var(--ink2)">Entrega: ${llega}</div>
       <div class="t-estado t-${t.estado}">${ELBL[t.estado]||t.estado}</div>
       <div style="font-size:12px;color:var(--ink2)">${t.notas}</div>
       <div><button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();openTransportEdit('${t.id}')">✎</button></div>
@@ -1140,7 +1147,7 @@ function renderAlerts() {
     const p=projById(t.proyecto_id);
     const next=db.fases.filter(f=>f.proyecto_id===t.proyecto_id&&parseDate(f.fecha_inicio)>=td)
       .sort((a,b)=>parseDate(a.fecha_inicio)-parseDate(b.fecha_inicio))[0];
-    if(next) alerts.push({type:'a-warn',icon:'▷',title:`Transporte sin solicitar — ${p.codigo}`,text:`Material para ${p.cliente} (${p.lugar}) pendiente. Próxima fase: ${fmtShort(next.fecha_inicio)}.`});
+    if(next) alerts.push({type:'a-warn',icon:'▷',title:`Transporte sin encargar — ${p.codigo}`,text:`Fabricación para ${p.cliente} (${p.lugar}) pendiente de encargar. Próxima fase: ${fmtShort(next.fecha_inicio)}.`});
   });
 
   // Worker conflicts
@@ -1443,7 +1450,7 @@ async function saveWorker(){
   if(!body.nombre){alert('El nombre es obligatorio');return;}
   if(id) db.trabajadores=db.trabajadores.map(w=>w.id===id?body:w);
   else {
-    if(db.trabajadores.length>=10){alert('Límite de 10 trabajadores alcanzado.');return;}
+    if(db.trabajadores.length>=30){alert('Límite de 30 trabajadores alcanzado.');return;}
     db.trabajadores.push(body);
   }
   closeModal('m-worker');
@@ -1467,10 +1474,11 @@ async function deleteWorker(){
 // TRANSPORT MODAL
 // ═══════════════════════════════════════════════
 function openTransportModal(){
-  document.getElementById('m-transport-title').textContent='NUEVO TRANSPORTE';
+  document.getElementById('m-transport-title').textContent='NUEVO ELEMENTO';
   document.getElementById('mt-id').value='';
   document.getElementById('mt-fecha').value='';
-  document.getElementById('mt-dias').value=1;
+  document.getElementById('mt-fecha-entrega').value='';
+  document.getElementById('mt-tipo').value='fabricacion';
   document.getElementById('mt-estado').value='pendiente';
   document.getElementById('mt-notas').value='';
   document.getElementById('mt-del-btn').style.display='none';
@@ -1482,7 +1490,8 @@ function openTransportEdit(id){
   document.getElementById('m-transport-title').textContent='EDITAR TRANSPORTE';
   document.getElementById('mt-id').value=t.id;
   document.getElementById('mt-fecha').value=t.fecha_envio||'';
-  document.getElementById('mt-dias').value=t.dias_transito||1;
+  document.getElementById('mt-fecha-entrega').value=t.fecha_entrega||'';
+  document.getElementById('mt-tipo').value=t.tipo||'fabricacion';
   document.getElementById('mt-estado').value=t.estado;
   document.getElementById('mt-notas').value=t.notas||'';
   document.getElementById('mt-del-btn').style.display='';
@@ -1492,8 +1501,9 @@ function openTransportEdit(id){
 async function saveTransport(){
   const id=document.getElementById('mt-id').value;
   const body={id:id||newId(),proyecto_id:document.getElementById('mt-proy').value,
+    tipo:document.getElementById('mt-tipo').value,
     fecha_envio:document.getElementById('mt-fecha').value,
-    dias_transito:parseInt(document.getElementById('mt-dias').value)||1,
+    fecha_entrega:document.getElementById('mt-fecha-entrega').value,
     estado:document.getElementById('mt-estado').value,
     notas:document.getElementById('mt-notas').value.trim()};
   if(id) db.transportes=db.transportes.map(t=>t.id===id?body:t);
