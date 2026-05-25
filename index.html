@@ -527,6 +527,7 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
 const CLIENT_ID = '856316170100-g0c8p4ctib79gfci0hdr8ohadpbdr9f3.apps.googleusercontent.com';
 const SHEET_ID  = '1hbqIo7aZk1O3wcj38X0yp1CBP0mDF-hJL7JffSSPIRw';
 const SCOPE     = 'https://www.googleapis.com/auth/spreadsheets';
+const API_KEY   = 'AIzaSyAe3yKiKLVciH96kVKotGfWYg4NWd07qxA';
 
 // ═══════════════════════════════════
 // STATE
@@ -601,13 +602,13 @@ async function refreshToken() {
 
 async function sheetGet(range) {
   let r = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}`,
+    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}?key=${API_KEY}`,
     {headers:{Authorization:`Bearer ${gToken}`}}
   );
   if (r.status === 401 || r.status === 403) {
     await refreshToken();
     r = await fetch(
-      `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}`,
+      `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}?key=${API_KEY}`,
       {headers:{Authorization:`Bearer ${gToken}`}}
     );
   }
@@ -618,7 +619,7 @@ async function sheetGet(range) {
 
 async function sheetWrite(range, values) {
   const r = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}?valueInputOption=RAW`,
+    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}?valueInputOption=RAW&key=${API_KEY}`,
     {method:'PUT', headers:{Authorization:`Bearer ${gToken}`,'Content-Type':'application/json'},
      body:JSON.stringify({range, majorDimension:'ROWS', values})}
   );
@@ -627,7 +628,7 @@ async function sheetWrite(range, values) {
 
 async function sheetClear(range) {
   await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}:clear`,
+    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}:clear?key=${API_KEY}`,
     {method:'POST', headers:{Authorization:`Bearer ${gToken}`,'Content-Type':'application/json'}}
   );
 }
