@@ -87,8 +87,8 @@ table.wt{width:100%;border-collapse:collapse;min-width:650px;}
 table.wt th{padding:9px 7px;text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--ink3);border-bottom:1px solid var(--border);background:var(--surface2);font-weight:600;}
 table.wt th.th-today{color:var(--accent);background:rgba(224,92,32,.08);}
 table.wt td{padding:5px 5px;border-bottom:1px solid var(--border);vertical-align:top;}
-table.wt td.td-proj{padding:9px 13px;background:var(--surface2);min-width:160px;border-right:1px solid var(--border);}
-table.wt td.td-day{min-width:115px;}
+table.wt td.td-proj{padding:9px 13px;background:var(--surface2);min-width:150px;border-right:1px solid var(--border);position:sticky;left:0;z-index:1;}
+table.wt td.td-day{min-width:60px;}
 table.wt td.td-today{background:rgba(224,92,32,.04);}
 .pc-name{font-weight:600;font-size:13px;}
 .pc-sub{font-size:11px;color:var(--ink2);margin-top:1px;}
@@ -244,8 +244,8 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
   <header class="topbar">
     <div class="tlogo">MON<span>TAJ</span>ES</div>
     <nav class="tnav">
-      <button class="nb on" data-view="semana">◫ Semana</button>
-      <button class="nb" data-view="mes">▦ Mes</button>
+      <button class="nb on" data-view="semana">◫ 4 Semanas</button>
+      <button class="nb" data-view="mes">▦ 8 Semanas</button>
       <button class="nb" data-view="trimestre">⊞ 3 Meses</button>
       <button class="nb" data-view="semestre">⊟ 6 Meses</button>
       <button class="nb" data-view="proyectos">◈ Proyectos</button>
@@ -382,7 +382,7 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
         <div class="fr" style="margin:0"><label>Fecha inicio</label><input type="date" id="mf-ini"></div>
         <div class="fr" style="margin:0"><label>Fecha fin</label><input type="date" id="mf-fin"></div>
       </div>
-      <div class="fr" style="margin-top:12px"><label>Descripción / trabajo previsto</label><textarea id="mf-desc" placeholder="Describe el trabajo para este tramo..."></textarea></div>
+      <div class="fr" style="margin-top:12px"><label>Descripción / trabajo previsto</label><textarea id="mf-desc" placeholder="Describe el trabajo para este tramo..." maxlength="500" oninput="charCount(this,'mf-desc-count')"></textarea><div style="font-size:10px;color:var(--ink3);text-align:right;margin-top:3px"><span id="mf-desc-count">0</span>/500 caracteres</div></div>
       <div class="fr"><label>Estado</label>
         <select id="mf-est">
           <option value="previsto">Previsto</option>
@@ -423,7 +423,7 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
       </div>
       <div class="fr"><label>Cliente</label><input type="text" id="mp-cli" placeholder="Ej. AENA"></div>
       <div class="fr"><label>Lugar / Destino</label><input type="text" id="mp-lug" placeholder="Ej. Mallorca T2"></div>
-      <div class="fr"><label>Notas generales</label><textarea id="mp-notas" placeholder="Descripción, contexto..."></textarea></div>
+      <div class="fr"><label>Notas generales</label><textarea id="mp-notas" placeholder="Descripción, contexto..." maxlength="500" oninput="charCount(this,'mp-notas-count')"></textarea><div style="font-size:10px;color:var(--ink3);text-align:right;margin-top:3px"><span id="mp-notas-count">0</span>/500 caracteres</div></div>
       <div id="mp-comm-sec" style="display:none;margin-top:4px">
         <div style="font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--ink3);font-weight:600;margin-bottom:8px">Comentarios / Seguimiento</div>
         <div class="clist" id="mp-clist"></div>
@@ -510,7 +510,7 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
           <option value="entregado">Entregado</option>
         </select>
       </div>
-      <div class="fr"><label>Descripción / Notas</label><textarea id="mfab-notas" placeholder="Ej. Soportes a medida, estructura metálica..."></textarea></div>
+      <div class="fr"><label>Descripción / Notas</label><textarea id="mfab-notas" placeholder="Ej. Soportes a medida, estructura metálica..." maxlength="400" oninput="charCount(this,'mfab-notas-count')"></textarea><div style="font-size:10px;color:var(--ink3);text-align:right;margin-top:3px"><span id="mfab-notas-count">0</span>/400 caracteres</div></div>
     </div>
     <div class="mf">
       <button class="btn bd bsm" id="mfab-del" style="display:none;margin-right:auto" onclick="deleteFab()">Eliminar</button>
@@ -559,6 +559,7 @@ function onCredential(resp) {
       gToken = r.access_token;
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('app').classList.add('on');
+      startTokenRefresh();
       await syncAll();
     }
   });
@@ -691,6 +692,18 @@ const serial = {
 // ═══════════════════════════════════
 // SYNC
 // ═══════════════════════════════════
+// Auto-refresh token every 45 min
+let tokenRefreshInterval = null;
+function startTokenRefresh() {
+  if(tokenRefreshInterval) clearInterval(tokenRefreshInterval);
+  tokenRefreshInterval = setInterval(async()=>{
+    try {
+      await refreshToken();
+      setSync('✓ Token renovado '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}));
+    } catch(e){ setSync('⚠ Reconecta — sesión expirada'); }
+  }, 45*60*1000);
+}
+
 async function syncAll() {
   setSync('Sincronizando...');
   try {
@@ -748,8 +761,8 @@ function workerAvail(wid, ini, fin) {
   if(w.disponible!=='disponible') {
     if(w.disp_desde&&w.disp_hasta) {
       if(parseDate(ini)<=parseDate(w.disp_hasta)&&parseDate(fin)>=parseDate(w.disp_desde))
-        return {ok:false,reason:`${w.disponible} (${fmtS(w.disp_desde)}–${fmtS(w.disp_hasta)})`};
-    } else return {ok:false,reason:w.disponible};
+        return {ok:false,warn:true,reason:`No disponible: ${w.disponible} (${fmtS(w.disp_desde)}–${fmtS(w.disp_hasta)})`};
+    } else return {ok:false,warn:true,reason:`No disponible: ${w.disponible}`};
   }
   const editId=document.getElementById('mf-id')?.value;
   const conf=db.fases.filter(f=>{
@@ -757,11 +770,18 @@ function workerAvail(wid, ini, fin) {
     return parseDate(ini)<=parseDate(f.fecha_fin)&&parseDate(fin)>=parseDate(f.fecha_inicio);
   });
   if(conf.length>0){
-    const c=conf[0],p=pById(c.proyecto_id);
-    return {ok:false,warn:true,reason:`Ya en "${c.nombre}" (${p.codigo} ${p.lugar}) ${fmtS(c.fecha_inicio)}–${fmtS(c.fecha_fin)}`};
+    const cv=conf[0],p=pById(cv.proyecto_id);
+    return {ok:false,warn:true,reason:`También asignado a "${cv.nombre}" — ${p.codigo} ${p.lugar} (${fmtS(cv.fecha_inicio)}–${fmtS(cv.fecha_fin)})`};
   }
   return {ok:true};
 }
+
+function toggleProjExpand(pid){
+  const el=document.getElementById('pexp-'+pid);
+  if(el) el.style.display=el.style.display==='none'?'block':'none';
+}
+
+function charCount(el,countId){const s=document.getElementById(countId);if(s){s.textContent=el.value.length;s.style.color=el.value.length>el.maxLength*0.9?'var(--accent)':'var(--ink3)';}}
 
 // ═══════════════════════════════════
 // RENDER ALL
@@ -776,10 +796,11 @@ function renderAll() {
 // WEEK
 // ═══════════════════════════════════
 function renderWeek() {
-  const days=Array.from({length:7},(_,i)=>addDays(currentWeek,i));
+  // Show 4 weeks (28 days) starting from currentWeek
+  const days=Array.from({length:28},(_,i)=>addDays(currentWeek,i));
   const td=today();
-  const DN=['LUN','MAR','MIÉ','JUE','VIE','SÁB','DOM'];
-  document.getElementById('week-lbl').textContent=`${fmtS(isoDate(days[0]))} — ${fmtS(isoDate(days[6]))}`;
+  const DN=['L','M','X','J','V','S','D'];
+  document.getElementById('week-lbl').textContent=`${fmtS(isoDate(days[0]))} — ${fmtS(isoDate(days[27]))}`;
 
   // KPIs
   const enc=db.fases.filter(f=>f.estado==='en_curso');
@@ -794,8 +815,25 @@ function renderWeek() {
   const af=db.fases.filter(f=>days.some(d=>inRange(d,f.fecha_inicio,f.fecha_fin)));
   const pids=[...new Set(af.map(f=>f.proyecto_id))];
 
-  let h='<thead><tr><th style="text-align:left;padding-left:13px;min-width:160px">Proyecto</th>';
-  days.forEach((d,i)=>{const it=d.getTime()===td.getTime();h+=`<th class="${it?'th-today':''}">${DN[i]}<br><span style="font-size:11px;font-weight:400">${d.getDate()}</span></th>`;});
+  // Build header: week separators + day columns
+  let h='<thead>';
+  // Week labels row
+  h+='<tr><th style="text-align:left;padding-left:13px;min-width:160px;background:var(--surface2)"></th>';
+  for(let w=0;w<4;w++){
+    const wStart=addDays(currentWeek,w*7);
+    const wEnd=addDays(currentWeek,w*7+6);
+    const isCurrentW=days.slice(w*7,w*7+7).some(d=>d.getTime()===td.getTime());
+    h+=`<th colspan="7" style="text-align:center;font-size:10px;font-weight:700;letter-spacing:.5px;border-left:2px solid var(--border2);${isCurrentW?'color:var(--accent);background:rgba(224,92,32,.06)':'color:var(--ink3)'}">Sem ${fmtS(isoDate(wStart))} – ${fmtS(isoDate(wEnd))}</th>`;
+  }
+  h+='</tr>';
+  // Day columns row
+  h+='<tr><th style="text-align:left;padding-left:13px;min-width:160px">Proyecto</th>';
+  days.forEach((d,i)=>{
+    const it=d.getTime()===td.getTime();
+    const isWE=d.getDay()===0||d.getDay()===6;
+    const isMon=d.getDay()===1;
+    h+=`<th class="${it?'th-today':''}" style="${isMon?'border-left:2px solid var(--border2)':''}${isWE?';color:var(--border2)':''}">${DN[d.getDay()===0?6:d.getDay()-1]}<br><span style="font-size:10px;font-weight:400">${d.getDate()}</span></th>`;
+  });
   h+='</tr></thead><tbody>';
 
   if(!pids.length) h+=`<tr><td colspan="8"><div class="empty"><div class="empty-i">◫</div>Sin trabajos esta semana</div></td></tr>`;
@@ -807,14 +845,18 @@ function renderWeek() {
     days.forEach(d=>{
       const it=d.getTime()===td.getTime();
       const df=pf.filter(f=>inRange(d,f.fecha_inicio,f.fecha_fin));
-      h+=`<td class="td-day${it?' td-today':''}">`;
+      const isMon=d.getDay()===1;
+      h+=`<td class="td-day${it?' td-today':''}" style="${isMon?'border-left:2px solid var(--border2)':''}">`;
       df.forEach(f=>{
         h+=`<div class="fchip s-${f.estado}" onclick="openFaseEdit('${f.id}')"><div>${f.nombre}</div><div class="fchip-w">${f.trabajadores.map(wFirst).join(', ')||'Sin asignar'}</div></div>`;
       });
       db.fabricacion.forEach(fab=>{
         if(fab.proyecto_id!==pid) return;
-        const fe=parseDate(fab.fecha_encargo);
-        if(fe&&fe.getTime()===d.getTime())
+        const fini=parseDate(fab.fecha_encargo||fab.fecha_entrega);
+        const ffin=parseDate(fab.fecha_entrega||fab.fecha_encargo);
+        // Show dot on mondays within range, or on first day if range starts mid-week
+        const inFab=fini&&ffin&&d>=fini&&d<=ffin;
+        if(inFab&&(d.getDay()===1||d.getTime()===fini.getTime()))
           h+=`<div class="fab-chip"><span class="tdot ${fab.estado}"></span>${fab.tipo==='diseno'?'Diseño':'Fabric.'}</div>`;
       });
       h+='</td>';
@@ -825,7 +867,13 @@ function renderWeek() {
   document.getElementById('wtbl').innerHTML=h;
 
   // Fab this week
-  const fw=db.fabricacion.filter(f=>{const fe=parseDate(f.fecha_encargo);return fe&&days.some(d=>d.getTime()===fe.getTime());});
+  // Show fabricacion active during any day of the 4-week window (not just on encargo date)
+  const fw=db.fabricacion.filter(f=>{
+    if(!f.fecha_encargo&&!f.fecha_entrega) return false;
+    const ini=parseDate(f.fecha_encargo||f.fecha_entrega);
+    const fin=parseDate(f.fecha_entrega||f.fecha_encargo);
+    return days.some(d=>d>=ini&&d<=fin);
+  });
   const ELBL={pendiente:'⚠ Pendiente',encargado:'→ Encargado',en_fabricacion:'⚙ En fabricación',entregado:'✔ Entregado'};
   document.getElementById('fab-week').innerHTML=fw.length===0
     ?'<div style="color:var(--ink3);font-size:12px;font-style:italic">Sin encargos previstos esta semana.</div>'
@@ -848,17 +896,38 @@ function renderGantt(mode) {
   const td=today();
   const base=new Date(currentGantt.getFullYear(),currentGantt.getMonth(),1);
   let days=[],months=[];
-  const nMonths={mes:1,trim:3,sem:6}[mode];
-
-  for(let mi=0;mi<nMonths;mi++){
-    const d=new Date(base.getFullYear(),base.getMonth()+mi,1);
-    const dim=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();
-    months.push({label:MESES[d.getMonth()]+(nMonths>1?` ${d.getFullYear()}`:''),span:dim});
-    for(let di=1;di<=dim;di++) days.push(new Date(d.getFullYear(),d.getMonth(),di));
+  if(mode==='mes'){
+    // 8 weeks (56 days) from monday
+    const mStart=getMonday(new Date(currentGantt));
+    for(let wi=0;wi<8;wi++){
+      const wStart=addDays(mStart,wi*7);
+      for(let di=0;di<7;di++) days.push(addDays(wStart,di));
+    }
+    // Build month groups for header
+    let curMonth=-1;
+    days.forEach(d=>{
+      if(d.getMonth()!==curMonth){
+        curMonth=d.getMonth();
+        months.push({label:MESES[d.getMonth()]+' '+d.getFullYear(),span:0});
+      }
+      months[months.length-1].span++;
+    });
+  } else {
+    const nMonths={trim:3,sem:6}[mode];
+    for(let mi=0;mi<nMonths;mi++){
+      const d=new Date(base.getFullYear(),base.getMonth()+mi,1);
+      const dim=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();
+      months.push({label:MESES[d.getMonth()]+(nMonths>1?` ${d.getFullYear()}`:''),span:dim});
+      for(let di=1;di<=dim;di++) days.push(new Date(d.getFullYear(),d.getMonth(),di));
+    }
   }
 
-  if(mode==='mes') document.getElementById('mes-title').textContent=`${MESES[base.getMonth()].toUpperCase()} ${base.getFullYear()}`;
-  else if(mode==='trim') document.getElementById('trim-title').textContent=`${MESES[base.getMonth()]} – ${MESES[new Date(base.getFullYear(),base.getMonth()+2,1).getMonth()]} ${base.getFullYear()}`;
+  if(mode==='mes'){
+    // 8 weeks from current monday
+    const mStart=getMonday(new Date(currentGantt));
+    const mEnd=addDays(mStart,55);
+    document.getElementById('mes-title').textContent=`8 SEMANAS: ${fmtS(isoDate(mStart))} — ${fmtS(isoDate(mEnd))}`;
+  } else if(mode==='trim') document.getElementById('trim-title').textContent=`${MESES[base.getMonth()]} – ${MESES[new Date(base.getFullYear(),base.getMonth()+2,1).getMonth()]} ${base.getFullYear()}`;
   else document.getElementById('sem-title').textContent=`${MESES[base.getMonth()]} – ${MESES[new Date(base.getFullYear(),base.getMonth()+5,1).getMonth()]} ${base.getFullYear()}`;
 
   const tid={mes:'gt-mes',trim:'gt-trim',sem:'gt-sem'}[mode];
@@ -910,13 +979,30 @@ function renderProjects() {
   el.innerHTML=db.proyectos.map(p=>{
     const fases=db.fases.filter(f=>f.proyecto_id===p.id);
     const pend=db.comentarios.filter(c=>c.proyecto_id===p.id&&c.estado==='pendiente').length;
-    return `<div class="plr" onclick="openProyEdit('${p.id}')">
-      <div class="pcod">${p.codigo}</div>
-      <div><strong>${p.cliente}</strong> <span style="color:var(--ink2)">— ${p.lugar}</span></div>
-      <div><span class="pest pe-${p.estado}"><span class="pedot"></span>${p.estado.replace('_',' ')}</span></div>
-      <div style="color:var(--ink2);font-size:12px">${fases.length} fase${fases.length!==1?'s':''}</div>
-      <div style="font-size:12px">${pend>0?`<span style="color:var(--yellow)">⚠ ${pend} pendiente${pend!==1?'s':''}</span>`:`<span style="color:var(--ink3)">—</span>`}</div>
-      <div><button class="btn bg bxs" onclick="event.stopPropagation();openFaseModalForProy('${p.id}')">+ Fase</button></div>
+    // Expandable fases list per project
+    const fasesHtml=fases.map(f=>`
+      <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);font-size:11px">
+        <span style="width:8px;height:8px;border-radius:50%;background:${{en_curso:'var(--green)',previsto:'var(--blue)',afectado:'var(--yellow)',completado:'var(--ink3)'}[f.estado]||'var(--ink3)'};flex-shrink:0;display:inline-block"></span>
+        <span style="flex:1;font-weight:500">${f.nombre}</span>
+        <span style="color:var(--ink2)">${fmtS(f.fecha_inicio)} → ${fmtS(f.fecha_fin)}</span>
+        <span style="color:var(--ink3)">${f.trabajadores.map(wFirst).join(', ')||'Sin asignar'}</span>
+        <button class="btn bg bxs" onclick="event.stopPropagation();openFaseEdit('${f.id}')">✎</button>
+      </div>`).join('');
+    return `<div style="border-bottom:1px solid var(--border)">
+      <div class="plr" onclick="toggleProjExpand('${p.id}')">
+        <div class="pcod">${p.codigo}</div>
+        <div><strong>${p.cliente}</strong> <span style="color:var(--ink2)">— ${p.lugar}</span></div>
+        <div><span class="pest pe-${p.estado}"><span class="pedot"></span>${p.estado.replace('_',' ')}</span></div>
+        <div style="color:var(--ink2);font-size:12px">${fases.length} fase${fases.length!==1?'s':''}</div>
+        <div style="font-size:12px">${pend>0?`<span style="color:var(--yellow)">⚠ ${pend} pendiente${pend!==1?'s':''}</span>`:`<span style="color:var(--ink3)">—</span>`}</div>
+        <div style="display:flex;gap:4px">
+          <button class="btn bg bxs" onclick="event.stopPropagation();openProyEdit('${p.id}')">✎</button>
+          <button class="btn bg bxs" onclick="event.stopPropagation();openFaseModalForProy('${p.id}')">+ Fase</button>
+        </div>
+      </div>
+      <div id="pexp-${p.id}" style="display:none;padding:8px 16px 4px;background:var(--bg)">
+        ${fasesHtml||'<div style="color:var(--ink3);font-size:11px;padding:6px 0">Sin fases — añade la primera</div>'}
+      </div>
     </div>`;
   }).join('');
 }
@@ -1031,10 +1117,12 @@ function renderAlerts() {
 // MODAL HELPERS
 // ═══════════════════════════════════
 function closeModal(id){document.getElementById(id).classList.remove('on');}
-document.querySelectorAll('.mbg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on');}));
+// Modals do NOT close on background click to prevent data loss
 
 function buildProySel(sid,selId){
-  document.getElementById(sid).innerHTML=db.proyectos.map(p=>
+  // Replace select with searchable input+datalist combo
+  const el=document.getElementById(sid);
+  el.innerHTML=db.proyectos.map(p=>
     `<option value="${p.id}"${p.id===selId?' selected':''}>${p.codigo} — ${p.cliente} (${p.lugar})</option>`
   ).join('')||'<option value="">Sin proyectos — crea uno primero</option>';
 }
@@ -1057,22 +1145,23 @@ function buildWorkerTogglesEdit(selectedIds,ini,fin){
   updateWarn();
 }
 
-function togglePill(el,cid){el.classList.toggle('sel');updateWarn();}
+function togglePill(el,cid){el.classList.toggle('sel');el.classList.remove('conf');updateWarn();}
 
 function updateWarn(){
   const ini=document.getElementById('mf-ini').value;
   const fin=document.getElementById('mf-fin').value;
   const warns=[];
+  // reset all conf styles first
+  document.querySelectorAll('#mf-workers .tpill').forEach(el=>el.classList.remove('conf'));
   document.querySelectorAll('#mf-workers .tpill.sel').forEach(el=>{
     const wid=el.dataset.id;
     if(ini&&fin){
       const av=workerAvail(wid,ini,fin);
       if(!av.ok){warns.push(`<strong>${wById(wid).nombre}:</strong> ${av.reason}`);el.classList.add('conf');}
-      else el.classList.remove('conf');
     }
   });
   const wb=document.getElementById('mf-warn');
-  if(warns.length){wb.style.display='';wb.innerHTML='⚠ '+warns.join('<br>⚠ ')+'<br><small style="opacity:.7">Puedes guardar igualmente si lo decides así.</small>';}
+  if(warns.length){wb.style.display='';wb.innerHTML='⚠ Aviso (puedes guardar igualmente):<br>'+warns.join('<br>');}
   else wb.style.display='none';
 }
 
@@ -1093,6 +1182,7 @@ function openFaseModal(pid){
   document.getElementById('mf-est').value='previsto';
   document.getElementById('mf-del').style.display='none';
   document.getElementById('mf-warn').style.display='none';
+  if(document.getElementById('mf-desc-count')) document.getElementById('mf-desc-count').textContent='0';
   buildProySel('mf-proy',pid||null);
   buildWorkerToggles('','');
   ['mf-ini','mf-fin'].forEach(id=>document.getElementById(id).addEventListener('change',updateWarn));
@@ -1333,13 +1423,21 @@ document.querySelectorAll('.nb[data-view]').forEach(btn=>{
   });
 });
 
-document.getElementById('pw').addEventListener('click',()=>{currentWeek=addDays(currentWeek,-7);renderWeek();});
-document.getElementById('nw').addEventListener('click',()=>{currentWeek=addDays(currentWeek,7);renderWeek();});
+document.getElementById('pw').addEventListener('click',()=>{currentWeek=addDays(currentWeek,-28);renderWeek();});
+document.getElementById('nw').addEventListener('click',()=>{currentWeek=addDays(currentWeek,28);renderWeek();});
 
-const NAV_MONTHS={mes:1,trim:3,sem:6};
+const NAV_MONTHS={trim:3,sem:6};
 [['pm','nm','mes'],['pt','nt','trim'],['ps','ns','sem']].forEach(([pid,nid,mode])=>{
-  document.getElementById(pid).addEventListener('click',()=>{currentGantt=new Date(currentGantt.getFullYear(),currentGantt.getMonth()-NAV_MONTHS[mode],1);renderGantt(mode);});
-  document.getElementById(nid).addEventListener('click',()=>{currentGantt=new Date(currentGantt.getFullYear(),currentGantt.getMonth()+NAV_MONTHS[mode],1);renderGantt(mode);});
+  document.getElementById(pid).addEventListener('click',()=>{
+    if(mode==='mes') currentGantt=addDays(getMonday(new Date(currentGantt)),-56);
+    else currentGantt=new Date(currentGantt.getFullYear(),currentGantt.getMonth()-NAV_MONTHS[mode],1);
+    renderGantt(mode);
+  });
+  document.getElementById(nid).addEventListener('click',()=>{
+    if(mode==='mes') currentGantt=addDays(getMonday(new Date(currentGantt)),56);
+    else currentGantt=new Date(currentGantt.getFullYear(),currentGantt.getMonth()+NAV_MONTHS[mode],1);
+    renderGantt(mode);
+  });
 });
 
 // ═══════════════════════════════════
