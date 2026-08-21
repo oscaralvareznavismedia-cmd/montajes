@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Montajes — Planificación</title>
+<title>Montajes — Planificación v3</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-:root {
+:root{
   --bg:#111;--surface:#1a1a1a;--surface2:#222;--surface3:#2c2c2c;
   --border:#2e2e2e;--border2:#3a3a3a;
   --ink:#f0ede6;--ink2:#888;--ink3:#555;
@@ -32,8 +32,8 @@ body{font-family:var(--fn);background:var(--bg);color:var(--ink);min-height:100v
 #app.on{display:block;}
 
 /* TOPBAR */
-.topbar{height:50px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 18px;gap:0;position:sticky;top:0;z-index:100;}
-.tlogo{font-family:var(--fd);font-size:20px;letter-spacing:1px;margin-right:28px;flex-shrink:0;}
+.topbar{height:50px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 18px;position:sticky;top:0;z-index:100;}
+.tlogo{font-family:var(--fd);font-size:20px;letter-spacing:1px;margin-right:24px;flex-shrink:0;}
 .tlogo span{color:var(--accent);}
 .tnav{display:flex;gap:2px;flex:1;overflow-x:auto;}
 .tnav::-webkit-scrollbar{display:none;}
@@ -43,33 +43,27 @@ body{font-family:var(--fn);background:var(--bg);color:var(--ink);min-height:100v
 .nbadge{font-size:9px;background:var(--accent);color:#fff;border-radius:99px;padding:1px 5px;font-weight:700;}
 .tright{display:flex;align-items:center;gap:8px;margin-left:12px;flex-shrink:0;}
 .sync-lbl{font-size:11px;color:var(--ink3);}
-.sync-btn{padding:4px 10px;border-radius:5px;border:1px solid var(--border2);background:transparent;color:var(--ink2);cursor:pointer;font-size:11px;font-family:var(--fn);transition:all .14s;}
-.sync-btn:hover{color:var(--ink);border-color:var(--border2);}
+.sync-btn{padding:4px 10px;border-radius:5px;border:1px solid var(--border2);background:transparent;color:var(--ink2);cursor:pointer;font-size:11px;font-family:var(--fn);}
+.sync-btn:hover{color:var(--ink);}
 .uavatar{width:26px;height:26px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;}
 .signout{padding:4px 10px;border-radius:5px;border:1px solid var(--border);background:transparent;color:var(--ink3);cursor:pointer;font-size:11px;font-family:var(--fn);}
 .signout:hover{color:var(--ink);}
 
 /* CONTENT */
-.content{padding:20px 22px;max-width:1700px;margin:0 auto;}
-
-/* VIEWS */
-.view{display:none;}
-.view.on{display:block;}
+.content{padding:20px 22px;max-width:1800px;margin:0 auto;}
+.view{display:none;}.view.on{display:block;}
 
 /* KPIS */
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
 .kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;border-top:2px solid var(--border);}
-.kpi.kg{border-top-color:var(--green);}
-.kpi.kb{border-top-color:var(--blue);}
-.kpi.ka{border-top-color:var(--accent);}
-.kpi.ky{border-top-color:var(--yellow);}
+.kpi.kg{border-top-color:var(--green);}.kpi.kb{border-top-color:var(--blue);}.kpi.ka{border-top-color:var(--accent);}.kpi.ky{border-top-color:var(--yellow);}
 .kpi-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.9px;color:var(--ink3);margin-bottom:6px;font-weight:600;}
 .kpi-val{font-family:var(--fd);font-size:34px;line-height:1;}
 .kpi-sub{font-size:11px;color:var(--ink2);margin-top:4px;}
 
 /* PANEL */
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:16px;}
-.ph{padding:13px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.ph{padding:13px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
 .pt{font-family:var(--fd);font-size:16px;letter-spacing:.5px;}
 .pb{padding:14px 18px;}
 
@@ -78,64 +72,73 @@ body{font-family:var(--fn);background:var(--bg);color:var(--ink);min-height:100v
 .bp{background:var(--accent);color:#fff;}.bp:hover{background:#c44e18;}
 .bg{background:transparent;color:var(--ink2);border:1px solid var(--border);}.bg:hover{color:var(--ink);border-color:var(--border2);background:var(--surface2);}
 .bd{background:rgba(224,64,64,.1);color:var(--red);border:1px solid rgba(224,64,64,.2);}.bd:hover{background:var(--red);color:#fff;}
-.bsm{padding:4px 9px;font-size:11px;}
-.bxs{padding:3px 7px;font-size:10px;}
+.bsm{padding:4px 9px;font-size:11px;}.bxs{padding:3px 7px;font-size:10px;}
 
 /* WEEK TABLE */
 .wtw{overflow-x:auto;}
-table.wt{width:100%;border-collapse:collapse;min-width:650px;}
-table.wt th{padding:9px 7px;text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--ink3);border-bottom:1px solid var(--border);background:var(--surface2);font-weight:600;}
+table.wt{border-collapse:collapse;min-width:900px;width:100%;}
+table.wt th{padding:7px 4px;text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3);border-bottom:1px solid var(--border);background:var(--surface2);font-weight:600;}
 table.wt th.th-today{color:var(--accent);background:rgba(224,92,32,.08);}
-table.wt td{padding:5px 5px;border-bottom:1px solid var(--border);vertical-align:top;}
+table.wt th.th-we{color:var(--border2);}
+table.wt td{padding:4px 3px;border-bottom:1px solid var(--border);vertical-align:top;}
 table.wt td.td-proj{padding:9px 13px;background:var(--surface2);min-width:150px;border-right:1px solid var(--border);position:sticky;left:0;z-index:1;}
-table.wt td.td-day{min-width:60px;}
+table.wt td.td-day{min-width:52px;}
 table.wt td.td-today{background:rgba(224,92,32,.04);}
+table.wt td.td-we{background:rgba(255,255,255,.01);}
 .pc-name{font-weight:600;font-size:13px;}
 .pc-sub{font-size:11px;color:var(--ink2);margin-top:1px;}
 .pc-cod{font-size:10px;color:var(--ink3);}
-.fchip{border-radius:5px;padding:5px 7px;margin-bottom:3px;cursor:pointer;font-size:11px;line-height:1.3;transition:opacity .12s;border-left:3px solid transparent;}
+.fchip{border-radius:4px;padding:4px 6px;margin-bottom:2px;cursor:pointer;font-size:10px;line-height:1.3;transition:opacity .12s;border-left:3px solid transparent;}
 .fchip:hover{opacity:.8;}
 .fchip.s-en_curso{background:rgba(46,204,122,.15);border-left-color:var(--green);color:#90e8b8;}
 .fchip.s-previsto{background:rgba(58,142,230,.13);border-left-color:var(--blue);color:#90b8e8;}
 .fchip.s-afectado{background:rgba(224,176,32,.13);border-left-color:var(--yellow);color:#e8d090;}
 .fchip.s-completado{background:var(--surface3);border-left-color:var(--ink3);color:var(--ink2);}
-.fchip-w{font-size:10px;opacity:.75;margin-top:2px;}
+.fchip-w{font-size:9px;opacity:.75;margin-top:1px;}
 .tdot{width:6px;height:6px;border-radius:50%;display:inline-block;flex-shrink:0;}
-.tdot.pendiente{background:var(--accent);}
-.tdot.encargado{background:var(--yellow);}
-.tdot.en_fabricacion{background:var(--blue);}
-.tdot.entregado{background:var(--green);}
-.fab-chip{font-size:10px;color:var(--ink2);display:flex;align-items:center;gap:4px;margin-top:2px;}
+.tdot.pendiente{background:var(--accent);}.tdot.encargado{background:var(--yellow);}
+.tdot.en_fabricacion{background:var(--blue);}.tdot.entregado{background:var(--green);}
+.fab-chip{font-size:9px;color:var(--ink2);display:flex;align-items:center;gap:3px;margin-top:1px;}
+.fab-chip.future{opacity:.5;font-style:italic;}
 
 /* GANTT */
 .gw{overflow-x:auto;}
 table.gt{border-collapse:collapse;min-width:600px;width:100%;}
-table.gt th{padding:5px 2px;text-align:center;font-size:10px;color:var(--ink3);border-bottom:1px solid var(--border);background:var(--surface2);min-width:22px;font-weight:500;}
-table.gt th.gih{text-align:left;padding-left:14px;min-width:210px;font-size:11px;color:var(--ink2);font-weight:600;position:sticky;left:0;z-index:2;background:var(--surface2);}
+table.gt th{padding:5px 2px;text-align:center;font-size:10px;color:var(--ink3);border-bottom:1px solid var(--border);background:var(--surface2);min-width:20px;font-weight:500;}
+table.gt th.gih{text-align:left;padding-left:14px;min-width:220px;font-size:11px;color:var(--ink2);font-weight:600;position:sticky;left:0;z-index:2;background:var(--surface2);}
 table.gt th.g-today{color:var(--accent);background:rgba(224,92,32,.1);}
 table.gt th.g-we{color:var(--border2);}
 table.gt th.g-mh{font-family:var(--fd);font-size:13px;color:var(--ink2);letter-spacing:.5px;text-align:left;padding-left:8px;background:var(--bg);border-bottom:2px solid var(--border);}
 table.gt th.gih-mh{background:var(--bg);}
-table.gt td{padding:2px 1px;border-bottom:1px solid var(--border);height:33px;}
-table.gt td.gi{padding:5px 14px;background:var(--surface2);position:sticky;left:0;z-index:1;border-right:1px solid var(--border);cursor:pointer;}
+table.gt td{padding:2px 1px;border-bottom:1px solid var(--border);height:36px;}
+table.gt td.gi{padding:5px 14px;background:var(--surface2);position:sticky;left:0;z-index:1;border-right:1px solid var(--border);cursor:pointer;min-width:220px;}
 table.gt td.gi:hover{background:var(--surface3);}
 table.gt td.gc{position:relative;padding:0;}
 table.gt td.g-today{background:rgba(224,92,32,.04);}
 table.gt td.g-we{background:rgba(255,255,255,.01);}
-.gp{font-weight:600;font-size:12px;}
+/* empty project row in gantt */
+table.gt td.gi-empty{opacity:.4;}
+.gp{font-weight:600;font-size:12px;line-height:1.2;}
 .gfn{font-size:11px;color:var(--ink2);}
 .gfw{font-size:10px;color:var(--ink3);}
-.gbar{position:absolute;top:5px;bottom:5px;border-radius:3px;cursor:pointer;min-width:4px;transition:opacity .12s;}
+.gbar{position:absolute;top:5px;bottom:5px;border-radius:3px;cursor:pointer;min-width:4px;transition:opacity .12s;overflow:hidden;}
 .gbar:hover{opacity:.75;}
 .gbar.s-en_curso{background:var(--green);}
 .gbar.s-previsto{background:var(--blue);}
 .gbar.s-afectado{background:var(--yellow);}
 .gbar.s-completado{background:var(--ink3);}
 .gbar.nc{opacity:.3;border:2px dashed currentColor;background:transparent!important;}
+.gbar-label{position:absolute;top:50%;transform:translateY(-50%);left:4px;right:2px;font-size:9px;color:rgba(255,255,255,.9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;line-height:1;}
+/* fab bar in gantt */
+.gbar-fab{position:absolute;top:2px;bottom:2px;border-radius:2px;opacity:.5;pointer-events:none;border:1px dashed var(--yellow);}
+.gbar-fab.future{opacity:.25;}
 
 /* PROJECTS */
-.plh{display:grid;grid-template-columns:80px 1fr 120px 80px 100px 60px;gap:8px;padding:8px 16px;font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--ink3);font-weight:600;border-bottom:1px solid var(--border);background:var(--surface2);}
-.plr{display:grid;grid-template-columns:80px 1fr 120px 80px 100px 60px;gap:8px;padding:11px 16px;border-bottom:1px solid var(--border);align-items:center;cursor:pointer;transition:background .1s;}
+.proj-search{padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface2);}
+.proj-search input{width:100%;background:var(--surface3);border:1px solid var(--border2);border-radius:6px;padding:7px 11px;color:var(--ink);font-family:var(--fn);font-size:13px;outline:none;}
+.proj-search input:focus{border-color:var(--blue);}
+.plh{display:grid;grid-template-columns:80px 1fr 120px 80px 110px 90px;gap:8px;padding:8px 16px;font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--ink3);font-weight:600;border-bottom:1px solid var(--border);background:var(--surface2);}
+.plr{display:grid;grid-template-columns:80px 1fr 120px 80px 110px 90px;gap:8px;padding:11px 16px;border-bottom:1px solid var(--border);align-items:center;cursor:pointer;transition:background .1s;}
 .plr:hover{background:var(--surface2);}
 .pcod{font-family:var(--fd);font-size:15px;}
 .pest{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 8px;border-radius:99px;}
@@ -143,14 +146,16 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
 .pe-no_confirmado{background:var(--ydim);color:var(--yellow);}
 .pe-completado{background:var(--surface3);color:var(--ink3);}
 .pedot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+.pexp{display:none;padding:8px 16px 6px;background:var(--bg);border-bottom:1px solid var(--border);}
+.pexp-fase{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);font-size:11px;}
+.pexp-fase:last-child{border-bottom:none;}
 
 /* COMMENTS */
 .clist{display:flex;flex-direction:column;gap:7px;margin-bottom:10px;}
 .citem{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:9px 11px;display:flex;gap:9px;align-items:flex-start;}
 .citem.res{opacity:.45;}
 .cdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px;}
-.cdot.pendiente{background:var(--yellow);}
-.cdot.resuelto{background:var(--green);}
+.cdot.pendiente{background:var(--yellow);}.cdot.resuelto{background:var(--green);}
 .cbody{flex:1;}
 .ctxt{font-size:13px;line-height:1.4;}
 .cmeta{font-size:10px;color:var(--ink3);margin-top:3px;}
@@ -164,26 +169,20 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
 .wname{font-weight:600;font-size:13px;}
 .wmeta{font-size:11px;color:var(--ink2);}
 .wbadge{font-size:10px;padding:2px 6px;border-radius:99px;font-weight:600;}
-.wbi{background:var(--gdim);color:var(--green);}
-.wbe{background:var(--bdim);color:var(--blue);}
-.wbett{background:var(--ydim);color:var(--yellow);}
+.wbi{background:var(--gdim);color:var(--green);}.wbe{background:var(--bdim);color:var(--blue);}.wbett{background:var(--ydim);color:var(--yellow);}
 .ubanner{background:var(--adim);border:1px solid rgba(224,92,32,.2);border-radius:5px;padding:5px 8px;font-size:11px;color:var(--accent);margin-bottom:8px;}
 .wfases{display:flex;flex-direction:column;gap:5px;}
 .wfi{background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:5px 8px;font-size:11px;}
-.wfp{font-weight:600;}
-.wfd{color:var(--ink2);margin-top:1px;}
+.wfp{font-weight:600;}.wfd{color:var(--ink2);margin-top:1px;}
 .wfe{font-size:11px;color:var(--ink3);font-style:italic;}
 
-/* FABRICACION LIST */
-.fabrow{display:grid;grid-template-columns:1fr 100px 110px 120px 1fr 44px;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);align-items:center;font-size:12px;}
-.fabrow:hover{background:var(--surface2);cursor:pointer;}
-.fabrh{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--ink3);font-weight:600;background:var(--surface2);padding:8px 16px;}
-.fabrh:hover{background:var(--surface2);cursor:default;}
+/* FABRICACION */
+.fabrow{display:grid;grid-template-columns:1fr 100px 110px 130px 1fr 44px;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);align-items:center;font-size:12px;cursor:pointer;}
+.fabrow:hover{background:var(--surface2);}
+.fabrh{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--ink3);font-weight:600;background:var(--surface2);padding:8px 16px;cursor:default;}
+.fabrh:hover{background:var(--surface2);}
 .fest{font-size:11px;font-weight:600;}
-.fe-pendiente{color:var(--accent);}
-.fe-encargado{color:var(--yellow);}
-.fe-en_fabricacion{color:var(--blue);}
-.fe-entregado{color:var(--green);}
+.fe-pendiente{color:var(--accent);}.fe-encargado{color:var(--yellow);}.fe-en_fabricacion{color:var(--blue);}.fe-entregado{color:var(--green);}
 
 /* ALERTS */
 .aitem{display:flex;gap:9px;padding:10px 13px;border-radius:7px;margin-bottom:7px;font-size:13px;line-height:1.4;}
@@ -193,10 +192,17 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
 .aico{font-size:15px;flex-shrink:0;}
 .atitle{font-weight:600;margin-bottom:2px;}
 
+/* CONTEXT MENU */
+.ctx-menu{position:fixed;background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:4px 0;z-index:500;min-width:180px;box-shadow:0 8px 24px rgba(0,0,0,.4);display:none;}
+.ctx-menu.on{display:block;}
+.ctx-item{padding:8px 14px;font-size:12px;cursor:pointer;color:var(--ink2);transition:all .1s;display:flex;align-items:center;gap:8px;}
+.ctx-item:hover{background:var(--surface2);color:var(--ink);}
+.ctx-sep{border-top:1px solid var(--border);margin:4px 0;}
+
 /* MODAL */
 .mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
 .mbg.on{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border2);border-radius:14px;width:550px;max-width:95vw;max-height:92vh;overflow-y:auto;animation:mup .2s ease;}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:14px;width:560px;max-width:96vw;max-height:92vh;overflow-y:auto;animation:mup .2s ease;}
 @keyframes mup{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 .mh{padding:17px 22px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .mt{font-family:var(--fd);font-size:21px;letter-spacing:.3px;}
@@ -212,11 +218,27 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
 .fr select option{background:var(--surface2);}
 .fr textarea{resize:vertical;min-height:68px;}
 .fr2{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.char-count{font-size:10px;color:var(--ink3);text-align:right;margin-top:3px;}
+.char-count.warn{color:var(--accent);}
+
+/* SEARCHABLE SELECT */
+.proy-search-wrap{position:relative;}
+.proy-search-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 11px;color:var(--ink);font-family:var(--fn);font-size:13px;outline:none;}
+.proy-search-input:focus{border-color:var(--blue);}
+.proy-dropdown{position:absolute;top:100%;left:0;right:0;background:var(--surface);border:1px solid var(--border2);border-radius:6px;max-height:180px;overflow-y:auto;z-index:300;display:none;margin-top:2px;}
+.proy-dropdown.on{display:block;}
+.proy-opt{padding:8px 12px;font-size:12px;cursor:pointer;color:var(--ink2);}
+.proy-opt:hover,.proy-opt.sel{background:var(--surface2);color:var(--ink);}
+
+/* WORKER TOGGLES */
 .tgrid{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
 .tpill{padding:5px 10px;border-radius:99px;border:1px solid var(--border);background:var(--surface2);color:var(--ink2);cursor:pointer;font-size:12px;font-weight:500;transition:all .12s;}
 .tpill.sel{border-color:var(--blue);background:var(--bdim);color:#90b8f0;}
-.tpill.conf{border-color:var(--accent)!important;color:var(--accent)!important;}
+.tpill.conf{border-color:var(--accent)!important;background:var(--adim)!important;color:var(--accent)!important;}
 .warnbox{background:var(--ydim);border:1px solid rgba(224,176,32,.25);border-radius:6px;padding:8px 11px;font-size:12px;color:var(--yellow);margin-top:7px;line-height:1.5;display:none;}
+
+/* DATE ERROR */
+.date-error{font-size:11px;color:var(--red);margin-top:4px;display:none;}
 
 /* MISC */
 .empty{text-align:center;padding:36px;color:var(--ink3);}
@@ -233,10 +255,20 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">MON<span>TAJ</span>ES</div>
-    <div class="login-sub">Panel de planificación de trabajos<br>y equipos técnicos</div>
+    <div class="login-sub">Panel de planificación de trabajos<br>y equipos técnicos — v3</div>
     <div id="g-signin"></div>
-    <div class="login-note">Inicia sesión con la cuenta Google propietaria de la hoja de datos.<br>Solo los usuarios con acceso a la Sheet podrán ver y editar datos.</div>
+    <div class="login-note">Inicia sesión con la cuenta Google propietaria de la hoja de datos.</div>
   </div>
+</div>
+
+<!-- CONTEXT MENU -->
+<div class="ctx-menu" id="ctx-menu">
+  <div class="ctx-item" onclick="closeCtx();openProyModal()">◈ Nuevo proyecto</div>
+  <div class="ctx-item" onclick="closeCtx();openFaseModal()">◫ Nueva fase</div>
+  <div class="ctx-item" onclick="closeCtx();openFabModal()">⚙ Nueva fabricación</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" id="ctx-edit-proy" style="display:none" onclick="closeCtx();openProyEdit(ctxProyId)">✎ Editar proyecto</div>
+  <div class="ctx-item" id="ctx-add-fase" style="display:none" onclick="closeCtx();openFaseModalForProy(ctxProyId)">+ Añadir fase</div>
 </div>
 
 <!-- APP -->
@@ -255,7 +287,7 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
     </nav>
     <div class="tright">
       <span class="sync-lbl" id="sync-lbl">–</span>
-      <button class="sync-btn" onclick="syncAll()">↻</button>
+      <button class="sync-btn" onclick="syncAll()">↻ Sync</button>
       <div class="uavatar" id="uavatar">?</div>
       <button class="signout" onclick="signOut()">Salir</button>
     </div>
@@ -263,14 +295,14 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
 
   <div class="content">
 
-    <!-- SEMANA -->
+    <!-- 4 SEMANAS -->
     <div id="view-semana" class="view on">
       <div class="panel">
         <div class="ph">
-          <span class="pt">ESTA SEMANA</span>
+          <span class="pt">PLANIFICACIÓN — 4 SEMANAS</span>
           <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
             <button class="btn bg bsm" id="pw">‹</button>
-            <span style="font-size:13px;font-weight:600;min-width:190px;text-align:center" id="week-lbl"></span>
+            <span style="font-size:13px;font-weight:600;min-width:200px;text-align:center" id="week-lbl"></span>
             <button class="btn bg bsm" id="nw">›</button>
             <button class="btn bg bsm" onclick="currentWeek=getMonday(new Date());renderWeek()">Hoy</button>
             <button class="btn bp bsm" onclick="openFaseModal()">+ Fase</button>
@@ -280,12 +312,12 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
         <div class="wtw" style="padding-bottom:4px"><table class="wt" id="wtbl"></table></div>
       </div>
       <div class="panel">
-        <div class="ph"><span class="pt">FABRICACIÓN / MATERIAL</span><button class="btn bp bsm" onclick="openFabModal()">+ Elemento</button></div>
+        <div class="ph"><span class="pt">FABRICACIÓN / MATERIAL EN CURSO</span><button class="btn bp bsm" onclick="openFabModal()">+ Elemento</button></div>
         <div class="pb" id="fab-week"></div>
       </div>
     </div>
 
-    <!-- MES -->
+    <!-- 8 SEMANAS -->
     <div id="view-mes" class="view">
       <div class="panel">
         <div class="ph">
@@ -301,7 +333,7 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
       </div>
     </div>
 
-    <!-- TRIMESTRE -->
+    <!-- 3 MESES -->
     <div id="view-trimestre" class="view">
       <div class="panel">
         <div class="ph">
@@ -317,7 +349,7 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
       </div>
     </div>
 
-    <!-- SEMESTRE -->
+    <!-- 6 MESES -->
     <div id="view-semestre" class="view">
       <div class="panel">
         <div class="ph">
@@ -337,6 +369,7 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
     <div id="view-proyectos" class="view">
       <div class="panel">
         <div class="ph"><span class="pt">PROYECTOS</span><button class="btn bp bsm" onclick="openProyModal()">+ Proyecto</button></div>
+        <div class="proj-search"><input type="text" id="proj-search-input" placeholder="Buscar por código, cliente o lugar..." oninput="renderProjects()"></div>
         <div class="plh"><div>Código</div><div>Cliente — Lugar</div><div>Estado</div><div>Fases</div><div>Comentarios</div><div></div></div>
         <div id="proj-list"></div>
       </div>
@@ -376,13 +409,31 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
     <div class="mh"><span class="mt" id="mf-title">NUEVA FASE</span><button class="mx" onclick="closeModal('m-fase')">✕</button></div>
     <div class="mb">
       <input type="hidden" id="mf-id">
-      <div class="fr"><label>Proyecto</label><select id="mf-proy"></select></div>
+      <div class="fr">
+        <label>Proyecto</label>
+        <div class="proy-search-wrap">
+          <input class="proy-search-input" id="mf-proy-search" placeholder="Buscar proyecto..." autocomplete="off" oninput="filterProySel('mf')" onfocus="showProyDrop('mf')" onblur="hideProyDropDelayed('mf')">
+          <input type="hidden" id="mf-proy-val">
+          <div class="proy-dropdown" id="mf-proy-drop"></div>
+        </div>
+      </div>
       <div class="fr"><label>Nombre de la fase</label><input type="text" id="mf-nom" placeholder="Ej. Montaje videowall zona A"></div>
       <div class="fr2">
-        <div class="fr" style="margin:0"><label>Fecha inicio</label><input type="date" id="mf-ini"></div>
-        <div class="fr" style="margin:0"><label>Fecha fin</label><input type="date" id="mf-fin"></div>
+        <div class="fr" style="margin:0">
+          <label>Fecha inicio</label>
+          <input type="date" id="mf-ini" onchange="validateDates('mf');updateWarn()">
+          </div>
+        <div class="fr" style="margin:0">
+          <label>Fecha fin</label>
+          <input type="date" id="mf-fin" onchange="validateDates('mf');updateWarn()">
+        </div>
       </div>
-      <div class="fr" style="margin-top:12px"><label>Descripción / trabajo previsto</label><textarea id="mf-desc" placeholder="Describe el trabajo para este tramo..." maxlength="500" oninput="charCount(this,'mf-desc-count')"></textarea><div style="font-size:10px;color:var(--ink3);text-align:right;margin-top:3px"><span id="mf-desc-count">0</span>/500 caracteres</div></div>
+      <div class="date-error" id="mf-date-err">⚠ La fecha de fin debe ser posterior a la de inicio</div>
+      <div class="fr" style="margin-top:12px">
+        <label>Descripción / trabajo previsto</label>
+        <textarea id="mf-desc" placeholder="Describe el trabajo para este tramo..." maxlength="500" oninput="charCount(this,'mf-desc-cnt')"></textarea>
+        <div class="char-count" id="mf-desc-cnt">0/500</div>
+      </div>
       <div class="fr"><label>Estado</label>
         <select id="mf-est">
           <option value="previsto">Previsto</option>
@@ -392,13 +443,13 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
         </select>
       </div>
       <div class="fr">
-        <label>Trabajadores asignados</label>
+        <label>Trabajadores asignados <span style="color:var(--ink3);font-weight:400">(opcional)</span></label>
         <div class="tgrid" id="mf-workers"></div>
         <div class="warnbox" id="mf-warn"></div>
       </div>
     </div>
     <div class="mf">
-      <button class="btn bd bsm" id="mf-del" style="display:none;margin-right:auto" onclick="deleteFase()">Eliminar</button>
+      <button class="btn bd bsm" id="mf-del" style="display:none;margin-right:auto" onclick="deleteFase()">Eliminar fase</button>
       <button class="btn bg" onclick="closeModal('m-fase')">Cancelar</button>
       <button class="btn bp" onclick="saveFase()">Guardar</button>
     </div>
@@ -423,19 +474,23 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
       </div>
       <div class="fr"><label>Cliente</label><input type="text" id="mp-cli" placeholder="Ej. AENA"></div>
       <div class="fr"><label>Lugar / Destino</label><input type="text" id="mp-lug" placeholder="Ej. Mallorca T2"></div>
-      <div class="fr"><label>Notas generales</label><textarea id="mp-notas" placeholder="Descripción, contexto..." maxlength="500" oninput="charCount(this,'mp-notas-count')"></textarea><div style="font-size:10px;color:var(--ink3);text-align:right;margin-top:3px"><span id="mp-notas-count">0</span>/500 caracteres</div></div>
+      <div class="fr">
+        <label>Notas generales</label>
+        <textarea id="mp-notas" placeholder="Descripción, contexto..." maxlength="500" oninput="charCount(this,'mp-notas-cnt')"></textarea>
+        <div class="char-count" id="mp-notas-cnt">0/500</div>
+      </div>
       <div id="mp-comm-sec" style="display:none;margin-top:4px">
         <div style="font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--ink3);font-weight:600;margin-bottom:8px">Comentarios / Seguimiento</div>
         <div class="clist" id="mp-clist"></div>
         <div style="display:flex;gap:7px;margin-top:4px">
-          <input type="text" id="mp-ctxt" placeholder="Nuevo comentario..." style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--ink);font-family:var(--fn);font-size:13px;outline:none;">
+          <input type="text" id="mp-ctxt" placeholder="Nuevo comentario..." style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--ink);font-family:var(--fn);font-size:13px;outline:none;" maxlength="300">
           <select id="mp-cresp" style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--ink);font-family:var(--fn);font-size:12px;outline:none;min-width:110px;"></select>
           <button class="btn bp bsm" onclick="addComment()">+ Añadir</button>
         </div>
       </div>
     </div>
     <div class="mf">
-      <button class="btn bd bsm" id="mp-del" style="display:none;margin-right:auto" onclick="deleteProyecto()">Eliminar</button>
+      <button class="btn bd bsm" id="mp-del" style="display:none;margin-right:auto" onclick="deleteProyecto()">Eliminar proyecto</button>
       <button class="btn bg" onclick="closeModal('m-proy')">Cancelar</button>
       <button class="btn bp" onclick="saveProyecto()">Guardar</button>
     </div>
@@ -490,7 +545,14 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
     <div class="mh"><span class="mt" id="mfab-title">NUEVO ELEMENTO</span><button class="mx" onclick="closeModal('m-fab')">✕</button></div>
     <div class="mb">
       <input type="hidden" id="mfab-id">
-      <div class="fr"><label>Proyecto</label><select id="mfab-proy"></select></div>
+      <div class="fr">
+        <label>Proyecto</label>
+        <div class="proy-search-wrap">
+          <input class="proy-search-input" id="mfab-proy-search" placeholder="Buscar proyecto..." autocomplete="off" oninput="filterProySel('mfab')" onfocus="showProyDrop('mfab')" onblur="hideProyDropDelayed('mfab')">
+          <input type="hidden" id="mfab-proy-val">
+          <div class="proy-dropdown" id="mfab-proy-drop"></div>
+        </div>
+      </div>
       <div class="fr"><label>Tipo</label>
         <select id="mfab-tipo">
           <option value="fabricacion">Fabricación</option>
@@ -499,9 +561,10 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
         </select>
       </div>
       <div class="fr2">
-        <div class="fr" style="margin:0 0 12px"><label>Fecha de encargo</label><input type="date" id="mfab-enc"></div>
-        <div class="fr" style="margin:0 0 12px"><label>Entrega prevista</label><input type="date" id="mfab-ent"></div>
+        <div class="fr" style="margin:0 0 12px"><label>Fecha de encargo</label><input type="date" id="mfab-enc" onchange="validateDates('mfab')"></div>
+        <div class="fr" style="margin:0 0 12px"><label>Entrega prevista</label><input type="date" id="mfab-ent" onchange="validateDates('mfab')"></div>
       </div>
+      <div class="date-error" id="mfab-date-err">⚠ La fecha de entrega debe ser posterior a la de encargo</div>
       <div class="fr"><label>Estado</label>
         <select id="mfab-est">
           <option value="pendiente">Pendiente de encargar</option>
@@ -510,7 +573,11 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
           <option value="entregado">Entregado</option>
         </select>
       </div>
-      <div class="fr"><label>Descripción / Notas</label><textarea id="mfab-notas" placeholder="Ej. Soportes a medida, estructura metálica..." maxlength="400" oninput="charCount(this,'mfab-notas-count')"></textarea><div style="font-size:10px;color:var(--ink3);text-align:right;margin-top:3px"><span id="mfab-notas-count">0</span>/400 caracteres</div></div>
+      <div class="fr">
+        <label>Descripción / Notas</label>
+        <textarea id="mfab-notas" placeholder="Ej. Soportes a medida, estructura metálica..." maxlength="400" oninput="charCount(this,'mfab-notas-cnt')"></textarea>
+        <div class="char-count" id="mfab-notas-cnt">0/400</div>
+      </div>
     </div>
     <div class="mf">
       <button class="btn bd bsm" id="mfab-del" style="display:none;margin-right:auto" onclick="deleteFab()">Eliminar</button>
@@ -521,228 +588,141 @@ table.gt td.g-we{background:rgba(255,255,255,.01);}
 </div>
 
 <script>
-// ═══════════════════════════════════
+// ═══════════════════════════
 // CONFIG
-// ═══════════════════════════════════
+// ═══════════════════════════
 const CLIENT_ID = '856316170100-g0c8p4ctib79gfci0hdr8ohadpbdr9f3.apps.googleusercontent.com';
 const SHEET_ID  = '1hbqIo7aZk1O3wcj38X0yp1CBP0mDF-hJL7JffSSPIRw';
-const SCOPE     = 'https://www.googleapis.com/auth/spreadsheets';
 const API_KEY   = 'AIzaSyAe3yKiKLVciH96kVKotGfWYg4NWd07qxA';
+const SCOPE     = 'https://www.googleapis.com/auth/spreadsheets';
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // STATE
-// ═══════════════════════════════════
-let db = {trabajadores:[],proyectos:[],fases:[],comentarios:[],fabricacion:[]};
-let gToken = null;
-let currentUser = null;
-let currentWeek = getMonday(new Date());
-let currentGantt = new Date();
+// ═══════════════════════════
+let db={trabajadores:[],proyectos:[],fases:[],comentarios:[],fabricacion:[]};
+let gToken=null, currentUser=null;
+let currentWeek=getMonday(new Date());
+let currentGantt=new Date();
+let ctxProyId=null;
 
-// ═══════════════════════════════════
-// GOOGLE AUTH
-// ═══════════════════════════════════
-function initAuth() {
-  google.accounts.id.initialize({client_id:CLIENT_ID, callback:onCredential, auto_select:true});
-  google.accounts.id.renderButton(document.getElementById('g-signin'),
-    {theme:'filled_black',size:'large',text:'signin_with',shape:'pill',width:260});
+// ═══════════════════════════
+// AUTH
+// ═══════════════════════════
+function initAuth(){
+  google.accounts.id.initialize({client_id:CLIENT_ID,callback:onCredential,auto_select:true});
+  google.accounts.id.renderButton(document.getElementById('g-signin'),{theme:'filled_black',size:'large',text:'signin_with',shape:'pill',width:260});
   google.accounts.id.prompt();
 }
-
-function onCredential(resp) {
-  const p = parseJwt(resp.credential);
-  currentUser = {name:p.name, email:p.email};
-  document.getElementById('uavatar').textContent = (p.name||'?').split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
-  const tc = google.accounts.oauth2.initTokenClient({
-    client_id: CLIENT_ID, scope: SCOPE,
-    callback: async r => {
-      if (r.error) { alert('Error de autenticación: '+r.error); return; }
-      gToken = r.access_token;
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('app').classList.add('on');
-      startTokenRefresh();
-      await syncAll();
-    }
-  });
+function onCredential(resp){
+  const p=parseJwt(resp.credential);
+  currentUser={name:p.name,email:p.email};
+  document.getElementById('uavatar').textContent=(p.name||'?').split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+  const tc=google.accounts.oauth2.initTokenClient({client_id:CLIENT_ID,scope:SCOPE,callback:async r=>{
+    if(r.error){alert('Error auth: '+r.error);return;}
+    gToken=r.access_token;
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').classList.add('on');
+    startTokenRefresh();
+    await syncAll();
+  }});
   tc.requestAccessToken({prompt:'consent'});
 }
+function signOut(){google.accounts.id.disableAutoSelect();gToken=null;document.getElementById('login-screen').style.display='flex';document.getElementById('app').classList.remove('on');}
+function parseJwt(t){return JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));}
 
-function signOut() {
-  google.accounts.id.disableAutoSelect();
-  gToken = null;
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('app').classList.remove('on');
+let tokenRefreshInterval=null;
+function startTokenRefresh(){
+  if(tokenRefreshInterval)clearInterval(tokenRefreshInterval);
+  tokenRefreshInterval=setInterval(async()=>{
+    try{
+      await new Promise((res,rej)=>{
+        const tc=google.accounts.oauth2.initTokenClient({client_id:CLIENT_ID,scope:SCOPE,callback:r=>{if(r.error)rej(r);else{gToken=r.access_token;res();}}});
+        tc.requestAccessToken({prompt:''});
+      });
+      setSync('✓ '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}));
+    }catch(e){setSync('⚠ Sesión expirada — recarga');}
+  },45*60*1000);
 }
 
-function parseJwt(t) {
-  return JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-}
-
-// ═══════════════════════════════════
+// ═══════════════════════════
 // SHEETS API
-// ═══════════════════════════════════
-const RANGES = {
-  trabajadores: 'trabajadores!A:I',
-  proyectos:    'proyectos!A:F',
-  fases:        'fases!A:H',
-  comentarios:  'comentarios!A:G',
-  fabricacion:  'transportes!A:H'
+// ═══════════════════════════
+const RANGES={
+  trabajadores:'trabajadores!A:I',proyectos:'proyectos!A:F',
+  fases:'fases!A:H',comentarios:'comentarios!A:G',fabricacion:'transportes!A:H'
 };
-
-async function refreshToken() {
-  return new Promise((resolve, reject) => {
-    const tc = google.accounts.oauth2.initTokenClient({
-      client_id: CLIENT_ID, scope: SCOPE,
-      callback: r => {
-        if (r.error) reject(r.error);
-        else { gToken = r.access_token; resolve(); }
-      }
-    });
-    tc.requestAccessToken({prompt:''});
-  });
-}
-
-async function sheetGet(range) {
-  let r = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}?key=${API_KEY}`,
-    {headers:{Authorization:`Bearer ${gToken}`}}
-  );
-  if (r.status === 401 || r.status === 403) {
-    await refreshToken();
-    r = await fetch(
-      `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}?key=${API_KEY}`,
-      {headers:{Authorization:`Bearer ${gToken}`}}
-    );
+async function sheetGet(range){
+  let r=await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}?key=${API_KEY}`,{headers:{Authorization:`Bearer ${gToken}`}});
+  if(r.status===401||r.status===403){
+    await new Promise((res,rej)=>{const tc=google.accounts.oauth2.initTokenClient({client_id:CLIENT_ID,scope:SCOPE,callback:rv=>{if(rv.error)rej(rv);else{gToken=rv.access_token;res();}}});tc.requestAccessToken({prompt:''});});
+    r=await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}?key=${API_KEY}`,{headers:{Authorization:`Bearer ${gToken}`}});
   }
-  if (!r.ok) throw new Error(`GET ${range} failed: ${r.status}`);
-  const d = await r.json();
-  return d.values || [];
+  if(!r.ok)throw new Error(`GET ${range} failed: ${r.status}`);
+  return(await r.json()).values||[];
+}
+async function sheetWrite(range,values){
+  const r=await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}?valueInputOption=RAW&key=${API_KEY}`,{method:'PUT',headers:{Authorization:`Bearer ${gToken}`,'Content-Type':'application/json'},body:JSON.stringify({range,majorDimension:'ROWS',values})});
+  if(!r.ok)throw new Error(`WRITE ${range} failed: ${r.status}`);
+}
+async function sheetClear(range){
+  await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}:clear?key=${API_KEY}`,{method:'POST',headers:{Authorization:`Bearer ${gToken}`,'Content-Type':'application/json'}});
 }
 
-async function sheetWrite(range, values) {
-  const r = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}?valueInputOption=RAW&key=${API_KEY}`,
-    {method:'PUT', headers:{Authorization:`Bearer ${gToken}`,'Content-Type':'application/json'},
-     body:JSON.stringify({range, majorDimension:'ROWS', values})}
-  );
-  if (!r.ok) throw new Error(`WRITE ${range} failed: ${r.status}`);
-}
-
-async function sheetClear(range) {
-  await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}:clear?key=${API_KEY}`,
-    {method:'POST', headers:{Authorization:`Bearer ${gToken}`,'Content-Type':'application/json'}}
-  );
-}
-
-// ═══════════════════════════════════
+// ═══════════════════════════
 // PARSERS
-// ═══════════════════════════════════
-function parseTrab(rows) {
-  return rows.slice(1).filter(r=>r[0]).map(r=>({
-    id:r[0],nombre:r[1]||'',tipo:r[2]||'interno',empresa:r[3]||'',
-    activo:r[4]!=='false',disponible:r[5]||'disponible',
-    disp_desde:r[6]||'',disp_hasta:r[7]||'',disp_mot:r[8]||''
-  }));
-}
-function parseProy(rows) {
-  return rows.slice(1).filter(r=>r[0]).map(r=>({
-    id:r[0],codigo:r[1]||'',cliente:r[2]||'',lugar:r[3]||'',
-    estado:r[4]||'confirmado',notas:r[5]||''
-  }));
-}
-function parseFases(rows) {
-  return rows.slice(1).filter(r=>r[0]).map(r=>({
-    id:r[0],proyecto_id:r[1]||'',nombre:r[2]||'',
-    fecha_inicio:r[3]||'',fecha_fin:r[4]||'',descripcion:r[5]||'',
-    trabajadores:(r[6]||'').split(',').filter(Boolean),estado:r[7]||'previsto'
-  }));
-}
-function parseComm(rows) {
-  return rows.slice(1).filter(r=>r[0]).map(r=>({
-    id:r[0],proyecto_id:r[1]||'',texto:r[2]||'',
-    responsable:r[3]||'',estado:r[4]||'pendiente',fecha:r[5]||'',autor:r[6]||''
-  }));
-}
-function parseFab(rows) {
-  return rows.slice(1).filter(r=>r[0]).map(r=>({
-    id:r[0],proyecto_id:r[1]||'',tipo:r[2]||'fabricacion',
-    fecha_encargo:r[3]||'',fecha_entrega:r[4]||'',
-    estado:r[5]||'pendiente',notas:r[6]||''
-  }));
-}
+// ═══════════════════════════
+const parseTrab=rows=>rows.slice(1).filter(r=>r[0]).map(r=>({id:r[0],nombre:r[1]||'',tipo:r[2]||'interno',empresa:r[3]||'',activo:r[4]!=='false',disponible:r[5]||'disponible',disp_desde:r[6]||'',disp_hasta:r[7]||'',disp_mot:r[8]||''}));
+const parseProy=rows=>rows.slice(1).filter(r=>r[0]).map(r=>({id:r[0],codigo:r[1]||'',cliente:r[2]||'',lugar:r[3]||'',estado:r[4]||'confirmado',notas:r[5]||''}));
+const parseFases=rows=>rows.slice(1).filter(r=>r[0]).map(r=>({id:r[0],proyecto_id:r[1]||'',nombre:r[2]||'',fecha_inicio:r[3]||'',fecha_fin:r[4]||'',descripcion:r[5]||'',trabajadores:(r[6]||'').split(',').filter(Boolean),estado:r[7]||'previsto'}));
+const parseComm=rows=>rows.slice(1).filter(r=>r[0]).map(r=>({id:r[0],proyecto_id:r[1]||'',texto:r[2]||'',responsable:r[3]||'',estado:r[4]||'pendiente',fecha:r[5]||'',autor:r[6]||''}));
+const parseFab=rows=>rows.slice(1).filter(r=>r[0]).map(r=>({id:r[0],proyecto_id:r[1]||'',tipo:r[2]||'fabricacion',fecha_encargo:r[3]||'',fecha_entrega:r[4]||'',estado:r[5]||'pendiente',notas:r[6]||''}));
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // SERIALIZERS
-// ═══════════════════════════════════
-const HDR = {
+// ═══════════════════════════
+const HDR={
   trabajadores:[['id','nombre','tipo','empresa','activo','disponible','disp_desde','disp_hasta','disp_mot']],
   proyectos:[['id','codigo','cliente','lugar','estado','notas']],
   fases:[['id','proyecto_id','nombre','fecha_inicio','fecha_fin','descripcion','trabajadores','estado']],
   comentarios:[['id','proyecto_id','texto','responsable','estado','fecha','autor']],
   fabricacion:[['id','proyecto_id','tipo','fecha_encargo','fecha_entrega','estado','notas']]
 };
-const serial = {
-  trabajadores: ()=>[...HDR.trabajadores,...db.trabajadores.map(w=>[w.id,w.nombre,w.tipo,w.empresa,w.activo,w.disponible,w.disp_desde,w.disp_hasta,w.disp_mot])],
-  proyectos:    ()=>[...HDR.proyectos,...db.proyectos.map(p=>[p.id,p.codigo,p.cliente,p.lugar,p.estado,p.notas])],
-  fases:        ()=>[...HDR.fases,...db.fases.map(f=>[f.id,f.proyecto_id,f.nombre,f.fecha_inicio,f.fecha_fin,f.descripcion,f.trabajadores.join(','),f.estado])],
-  comentarios:  ()=>[...HDR.comentarios,...db.comentarios.map(c=>[c.id,c.proyecto_id,c.texto,c.responsable,c.estado,c.fecha,c.autor])],
-  fabricacion:  ()=>[...HDR.fabricacion,...db.fabricacion.map(f=>[f.id,f.proyecto_id,f.tipo,f.fecha_encargo,f.fecha_entrega,f.estado,f.notas])]
+const serial={
+  trabajadores:()=>[...HDR.trabajadores,...db.trabajadores.map(w=>[w.id,w.nombre,w.tipo,w.empresa,w.activo,w.disponible,w.disp_desde,w.disp_hasta,w.disp_mot])],
+  proyectos:()=>[...HDR.proyectos,...db.proyectos.map(p=>[p.id,p.codigo,p.cliente,p.lugar,p.estado,p.notas])],
+  fases:()=>[...HDR.fases,...db.fases.map(f=>[f.id,f.proyecto_id,f.nombre,f.fecha_inicio,f.fecha_fin,f.descripcion,f.trabajadores.join(','),f.estado])],
+  comentarios:()=>[...HDR.comentarios,...db.comentarios.map(c=>[c.id,c.proyecto_id,c.texto,c.responsable,c.estado,c.fecha,c.autor])],
+  fabricacion:()=>[...HDR.fabricacion,...db.fabricacion.map(f=>[f.id,f.proyecto_id,f.tipo,f.fecha_encargo,f.fecha_entrega,f.estado,f.notas])]
 };
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // SYNC
-// ═══════════════════════════════════
-// Auto-refresh token every 45 min
-let tokenRefreshInterval = null;
-function startTokenRefresh() {
-  if(tokenRefreshInterval) clearInterval(tokenRefreshInterval);
-  tokenRefreshInterval = setInterval(async()=>{
-    try {
-      await refreshToken();
-      setSync('✓ Token renovado '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}));
-    } catch(e){ setSync('⚠ Reconecta — sesión expirada'); }
-  }, 45*60*1000);
-}
-
-async function syncAll() {
+// ═══════════════════════════
+async function syncAll(){
   setSync('Sincronizando...');
-  try {
-    const [tw,pw,fw,cw,fabw] = await Promise.all([
-      sheetGet(RANGES.trabajadores),sheetGet(RANGES.proyectos),
-      sheetGet(RANGES.fases),sheetGet(RANGES.comentarios),sheetGet(RANGES.fabricacion)
-    ]);
-    db.trabajadores = parseTrab(tw.length?tw:[HDR.trabajadores[0]]);
-    db.proyectos    = parseProy(pw.length?pw:[HDR.proyectos[0]]);
-    db.fases        = parseFases(fw.length?fw:[HDR.fases[0]]);
-    db.comentarios  = parseComm(cw.length?cw:[HDR.comentarios[0]]);
-    db.fabricacion  = parseFab(fabw.length?fabw:[HDR.fabricacion[0]]);
+  try{
+    const[tw,pw,fw,cw,fabw]=await Promise.all([sheetGet(RANGES.trabajadores),sheetGet(RANGES.proyectos),sheetGet(RANGES.fases),sheetGet(RANGES.comentarios),sheetGet(RANGES.fabricacion)]);
+    db.trabajadores=parseTrab(tw.length?tw:[HDR.trabajadores[0]]);
+    db.proyectos=parseProy(pw.length?pw:[HDR.proyectos[0]]);
+    db.fases=parseFases(fw.length?fw:[HDR.fases[0]]);
+    db.comentarios=parseComm(cw.length?cw:[HDR.comentarios[0]]);
+    db.fabricacion=parseFab(fabw.length?fabw:[HDR.fabricacion[0]]);
     setSync('✓ '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}));
     renderAll();
-  } catch(e) {
-    setSync('Error: '+e.message);
-    console.error('Sync error:',e);
-  }
+  }catch(e){setSync('Error: '+e.message);console.error(e);}
 }
-
-async function save(entity) {
+async function save(entity){
   setSync('Guardando...');
-  try {
-    await sheetClear(RANGES[entity]);
-    await sheetWrite(RANGES[entity], serial[entity]());
-    setSync('✓ '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}));
-  } catch(e) { setSync('Error guardando'); console.error(e); }
+  try{await sheetClear(RANGES[entity]);await sheetWrite(RANGES[entity],serial[entity]());setSync('✓ '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}));}
+  catch(e){setSync('Error guardando');console.error(e);}
 }
+function setSync(t){document.getElementById('sync-lbl').textContent=t;}
+function newId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
 
-function setSync(t) { document.getElementById('sync-lbl').textContent=t; }
-function newId() { return Date.now().toString(36)+Math.random().toString(36).slice(2,5); }
-
-// ═══════════════════════════════════
+// ═══════════════════════════
 // UTILS
-// ═══════════════════════════════════
-function getMonday(d) {
-  const dt=new Date(d),day=dt.getDay();
-  dt.setDate(dt.getDate()-(day===0?6:day-1));dt.setHours(0,0,0,0);return dt;
-}
+// ═══════════════════════════
+function getMonday(d){const dt=new Date(d),day=dt.getDay();dt.setDate(dt.getDate()-(day===0?6:day-1));dt.setHours(0,0,0,0);return dt;}
 function addDays(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r;}
 function isoDate(d){return d.toISOString().split('T')[0];}
 function parseDate(s){return s?new Date(s+'T00:00:00'):null;}
@@ -752,51 +732,48 @@ function today(){const d=new Date();d.setHours(0,0,0,0);return d;}
 function pById(id){return db.proyectos.find(p=>p.id===id)||{codigo:'?',cliente:'?',lugar:'?',estado:'confirmado'};}
 function wById(id){return db.trabajadores.find(w=>w.id===id)||{nombre:'?'};}
 function wFirst(id){return wById(id).nombre.split(' ')[0];}
-const WCOLS=['#e05c20','#2ecc7a','#3a8ee6','#e0b020','#a050e0','#e04090','#20c8c0','#90a020'];
+const WCOLS=['#e05c20','#2ecc7a','#3a8ee6','#e0b020','#a050e0','#e04090','#20c8c0','#90a020','#c07830','#5090e0'];
 function wCol(id){const i=db.trabajadores.findIndex(w=>w.id===id);return WCOLS[Math.max(i,0)%WCOLS.length];}
 
-function workerAvail(wid, ini, fin) {
-  const w=db.trabajadores.find(x=>x.id===wid);
-  if(!w) return {ok:true};
-  if(w.disponible!=='disponible') {
-    if(w.disp_desde&&w.disp_hasta) {
-      if(parseDate(ini)<=parseDate(w.disp_hasta)&&parseDate(fin)>=parseDate(w.disp_desde))
-        return {ok:false,warn:true,reason:`No disponible: ${w.disponible} (${fmtS(w.disp_desde)}–${fmtS(w.disp_hasta)})`};
-    } else return {ok:false,warn:true,reason:`No disponible: ${w.disponible}`};
+function charCount(el,cid){
+  const s=document.getElementById(cid);if(!s)return;
+  s.textContent=`${el.value.length}/${el.maxLength}`;
+  s.className='char-count'+(el.value.length>el.maxLength*0.9?' warn':'');
+}
+
+function validateDates(prefix){
+  const ini=document.getElementById(prefix+'-ini')||document.getElementById(prefix+'-enc');
+  const fin=document.getElementById(prefix+'-fin')||document.getElementById(prefix+'-ent');
+  const err=document.getElementById(prefix+'-date-err');
+  if(!ini||!fin||!err)return true;
+  if(ini.value&&fin.value&&fin.value<ini.value){err.style.display='block';return false;}
+  err.style.display='none';return true;
+}
+
+function workerAvail(wid,ini,fin){
+  const w=db.trabajadores.find(x=>x.id===wid);if(!w)return{ok:true};
+  if(w.disponible!=='disponible'){
+    if(w.disp_desde&&w.disp_hasta){if(parseDate(ini)<=parseDate(w.disp_hasta)&&parseDate(fin)>=parseDate(w.disp_desde))return{ok:false,warn:true,reason:`No disponible: ${w.disponible} (${fmtS(w.disp_desde)}–${fmtS(w.disp_hasta)})`};}
+    else return{ok:false,warn:true,reason:`No disponible: ${w.disponible}`};
   }
   const editId=document.getElementById('mf-id')?.value;
-  const conf=db.fases.filter(f=>{
-    if(f.id===editId||!f.trabajadores.includes(wid)||f.estado==='completado') return false;
-    return parseDate(ini)<=parseDate(f.fecha_fin)&&parseDate(fin)>=parseDate(f.fecha_inicio);
-  });
-  if(conf.length>0){
-    const cv=conf[0],p=pById(cv.proyecto_id);
-    return {ok:false,warn:true,reason:`También asignado a "${cv.nombre}" — ${p.codigo} ${p.lugar} (${fmtS(cv.fecha_inicio)}–${fmtS(cv.fecha_fin)})`};
-  }
-  return {ok:true};
+  const conf=db.fases.filter(f=>{if(f.id===editId||!f.trabajadores.includes(wid)||f.estado==='completado')return false;return parseDate(ini)<=parseDate(f.fecha_fin)&&parseDate(fin)>=parseDate(f.fecha_inicio);});
+  if(conf.length>0){const cv=conf[0],p=pById(cv.proyecto_id);return{ok:false,warn:true,reason:`También asignado a "${cv.nombre}" — ${p.codigo} ${p.lugar} (${fmtS(cv.fecha_inicio)}–${fmtS(cv.fecha_fin)})`};}
+  return{ok:true};
 }
 
-function toggleProjExpand(pid){
-  const el=document.getElementById('pexp-'+pid);
-  if(el) el.style.display=el.style.display==='none'?'block':'none';
-}
-
-function charCount(el,countId){const s=document.getElementById(countId);if(s){s.textContent=el.value.length;s.style.color=el.value.length>el.maxLength*0.9?'var(--accent)':'var(--ink3)';}}
-
-// ═══════════════════════════════════
+// ═══════════════════════════
 // RENDER ALL
-// ═══════════════════════════════════
-function renderAll() {
-  renderWeek();
-  renderGantt('mes');renderGantt('trim');renderGantt('sem');
+// ═══════════════════════════
+function renderAll(){
+  renderWeek();renderGantt('mes');renderGantt('trim');renderGantt('sem');
   renderProjects();renderWorkers();renderFab();renderAlerts();
 }
 
-// ═══════════════════════════════════
-// WEEK
-// ═══════════════════════════════════
-function renderWeek() {
-  // Show 4 weeks (28 days) starting from currentWeek
+// ═══════════════════════════
+// 4-WEEK VIEW
+// ═══════════════════════════
+function renderWeek(){
   const days=Array.from({length:28},(_,i)=>addDays(currentWeek,i));
   const td=today();
   const DN=['L','M','X','J','V','S','D'];
@@ -812,52 +789,62 @@ function renderWeek() {
     <div class="kpi ka"><div class="kpi-lbl">Sin confirmar</div><div class="kpi-val">${db.proyectos.filter(p=>p.estado==='no_confirmado').length}</div><div class="kpi-sub">proyectos pendientes</div></div>
     <div class="kpi ky"><div class="kpi-lbl">Fabricación pendiente</div><div class="kpi-val">${db.fabricacion.filter(f=>f.estado==='pendiente').length}</div><div class="kpi-sub">sin encargar</div></div>`;
 
-  const af=db.fases.filter(f=>days.some(d=>inRange(d,f.fecha_inicio,f.fecha_fin)));
-  const pids=[...new Set(af.map(f=>f.proyecto_id))];
+  // Show ALL projects, not just those with fases in range
+  const allPids=[...new Set(db.proyectos.map(p=>p.id))];
+  const fasesInWindow=db.fases.filter(f=>days.some(d=>inRange(d,f.fecha_inicio,f.fecha_fin)));
+  const pidsWithFases=new Set(fasesInWindow.map(f=>f.proyecto_id));
 
-  // Build header: week separators + day columns
   let h='<thead>';
-  // Week labels row
-  h+='<tr><th style="text-align:left;padding-left:13px;min-width:160px;background:var(--surface2)"></th>';
+  // Week header row
+  h+='<tr><th style="text-align:left;padding-left:13px;min-width:150px;background:var(--surface2)"></th>';
   for(let w=0;w<4;w++){
-    const wStart=addDays(currentWeek,w*7);
-    const wEnd=addDays(currentWeek,w*7+6);
-    const isCurrentW=days.slice(w*7,w*7+7).some(d=>d.getTime()===td.getTime());
-    h+=`<th colspan="7" style="text-align:center;font-size:10px;font-weight:700;letter-spacing:.5px;border-left:2px solid var(--border2);${isCurrentW?'color:var(--accent);background:rgba(224,92,32,.06)':'color:var(--ink3)'}">Sem ${fmtS(isoDate(wStart))} – ${fmtS(isoDate(wEnd))}</th>`;
+    const wS=addDays(currentWeek,w*7),wE=addDays(currentWeek,w*7+6);
+    const isCW=days.slice(w*7,w*7+7).some(d=>d.getTime()===td.getTime());
+    h+=`<th colspan="7" style="text-align:center;font-size:10px;font-weight:700;letter-spacing:.5px;border-left:2px solid var(--border2);${isCW?'color:var(--accent);background:rgba(224,92,32,.06)':'color:var(--ink3)'}">Sem ${fmtS(isoDate(wS))} – ${fmtS(isoDate(wE))}</th>`;
   }
   h+='</tr>';
-  // Day columns row
-  h+='<tr><th style="text-align:left;padding-left:13px;min-width:160px">Proyecto</th>';
-  days.forEach((d,i)=>{
-    const it=d.getTime()===td.getTime();
-    const isWE=d.getDay()===0||d.getDay()===6;
-    const isMon=d.getDay()===1;
-    h+=`<th class="${it?'th-today':''}" style="${isMon?'border-left:2px solid var(--border2)':''}${isWE?';color:var(--border2)':''}">${DN[d.getDay()===0?6:d.getDay()-1]}<br><span style="font-size:10px;font-weight:400">${d.getDate()}</span></th>`;
+  // Day row
+  h+='<tr><th style="text-align:left;padding-left:13px;min-width:150px">Proyecto</th>';
+  days.forEach(d=>{
+    const it=d.getTime()===td.getTime(),we=d.getDay()===0||d.getDay()===6,isMon=d.getDay()===1;
+    h+=`<th class="${it?'th-today':we?'th-we':''}" style="${isMon?'border-left:2px solid var(--border2)':''}">${DN[d.getDay()===0?6:d.getDay()-1]}<br><span style="font-size:9px;font-weight:400">${d.getDate()}</span></th>`;
   });
   h+='</tr></thead><tbody>';
 
-  if(!pids.length) h+=`<tr><td colspan="8"><div class="empty"><div class="empty-i">◫</div>Sin trabajos esta semana</div></td></tr>`;
+  if(!allPids.length) h+=`<tr><td colspan="29"><div class="empty"><div class="empty-i">◫</div>Sin proyectos</div></td></tr>`;
 
-  pids.forEach(pid=>{
+  allPids.forEach(pid=>{
     const p=pById(pid);
-    const pf=af.filter(f=>f.proyecto_id===pid);
-    h+=`<tr><td class="td-proj"><div class="pc-name">${p.cliente}</div><div class="pc-sub">${p.lugar}</div><div class="pc-cod">${p.codigo}</div></td>`;
+    const pf=fasesInWindow.filter(f=>f.proyecto_id===pid);
+    const hasFases=pidsWithFases.has(pid);
+    // Show all projects; those without fases in window shown dimmed
+    h+=`<tr style="${!hasFases?'opacity:.4':''}">
+      <td class="td-proj" style="${!hasFases?'cursor:default':''}">
+        <div class="pc-name">${p.cliente}</div>
+        <div class="pc-sub">${p.lugar}</div>
+        <div class="pc-cod">${p.codigo}</div>
+      </td>`;
     days.forEach(d=>{
-      const it=d.getTime()===td.getTime();
+      const it=d.getTime()===td.getTime(),we=d.getDay()===0||d.getDay()===6,isMon=d.getDay()===1;
       const df=pf.filter(f=>inRange(d,f.fecha_inicio,f.fecha_fin));
-      const isMon=d.getDay()===1;
-      h+=`<td class="td-day${it?' td-today':''}" style="${isMon?'border-left:2px solid var(--border2)':''}">`;
+      h+=`<td class="td-day${it?' td-today':we?' td-we':''}" style="${isMon?'border-left:2px solid var(--border2)':''}">`;
       df.forEach(f=>{
         h+=`<div class="fchip s-${f.estado}" onclick="openFaseEdit('${f.id}')"><div>${f.nombre}</div><div class="fchip-w">${f.trabajadores.map(wFirst).join(', ')||'Sin asignar'}</div></div>`;
       });
+      // Fabricacion dots — show all active or future fab items
       db.fabricacion.forEach(fab=>{
-        if(fab.proyecto_id!==pid) return;
+        if(fab.proyecto_id!==pid)return;
         const fini=parseDate(fab.fecha_encargo||fab.fecha_entrega);
         const ffin=parseDate(fab.fecha_entrega||fab.fecha_encargo);
-        // Show dot on mondays within range, or on first day if range starts mid-week
+        const td2=today();
+        const isFuture=fini&&fini>td2;
         const inFab=fini&&ffin&&d>=fini&&d<=ffin;
-        if(inFab&&(d.getDay()===1||d.getTime()===fini.getTime()))
-          h+=`<div class="fab-chip"><span class="tdot ${fab.estado}"></span>${fab.tipo==='diseno'?'Diseño':'Fabric.'}</div>`;
+        const isFirst=(fini&&d.getTime()===fini.getTime())||(inFab&&d.getDay()===1);
+        if(inFab&&isFirst) h+=`<div class="fab-chip${isFuture?' future':''}"><span class="tdot ${fab.estado}"></span>${fab.tipo==='diseno'?'Dis.':'Fab.'}</div>`;
+        // Show future fab even if not in current 4-week window — show on first day of window
+        else if(isFuture&&!inFab&&d.getTime()===days[0].getTime()){
+          h+=`<div class="fab-chip future" title="Fabricación futura: ${fmtS(fab.fecha_encargo)}"><span class="tdot pendiente"></span>Futuro</div>`;
+        }
       });
       h+='</td>';
     });
@@ -866,69 +853,55 @@ function renderWeek() {
   h+='</tbody>';
   document.getElementById('wtbl').innerHTML=h;
 
-  // Fab this week
-  // Show fabricacion active during any day of the 4-week window (not just on encargo date)
-  const fw=db.fabricacion.filter(f=>{
-    if(!f.fecha_encargo&&!f.fecha_entrega) return false;
-    const ini=parseDate(f.fecha_encargo||f.fecha_entrega);
-    const fin=parseDate(f.fecha_entrega||f.fecha_encargo);
-    return days.some(d=>d>=ini&&d<=fin);
-  });
+  // Fab section — ALL active or future items
   const ELBL={pendiente:'⚠ Pendiente',encargado:'→ Encargado',en_fabricacion:'⚙ En fabricación',entregado:'✔ Entregado'};
-  document.getElementById('fab-week').innerHTML=fw.length===0
-    ?'<div style="color:var(--ink3);font-size:12px;font-style:italic">Sin encargos previstos esta semana.</div>'
-    :fw.map(f=>{const p=pById(f.proyecto_id);return `<div style="display:flex;align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;cursor:pointer" onclick="openFabEdit('${f.id}')">
-      <span class="tdot ${f.estado}" style="width:9px;height:9px"></span>
-      <strong>${p.cliente} — ${p.lugar}</strong>
-      <span style="color:var(--ink2)">${fmtS(f.fecha_encargo)}</span>
-      <span style="color:var(--ink3)">Entrega: ${fmtS(f.fecha_entrega)}</span>
-      <span style="flex:1;color:var(--ink2)">${f.notas}</span>
-      <span class="fest fe-${f.estado}">${ELBL[f.estado]||f.estado}</span>
-    </div>`;}).join('');
+  const activeFab=db.fabricacion.filter(f=>{
+    if(f.estado==='entregado')return false;
+    // active in window or future
+    const fini=parseDate(f.fecha_encargo||f.fecha_entrega);
+    const ffin=parseDate(f.fecha_entrega||f.fecha_encargo);
+    return (fini&&ffin&&days.some(d=>d>=fini&&d<=ffin))||(fini&&fini>today());
+  });
+  document.getElementById('fab-week').innerHTML=activeFab.length===0
+    ?'<div style="color:var(--ink3);font-size:12px;font-style:italic">Sin fabricaciones activas o previstas.</div>'
+    :activeFab.map(f=>{
+      const p=pById(f.proyecto_id);
+      const fini=parseDate(f.fecha_encargo);
+      const isFuture=fini&&fini>today();
+      return `<div style="display:flex;align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;cursor:pointer;${isFuture?'opacity:.6':''}" onclick="openFabEdit('${f.id}')">
+        <span class="tdot ${f.estado}" style="width:9px;height:9px"></span>
+        <strong>${p.cliente} — ${p.lugar}</strong>
+        ${isFuture?`<span style="font-size:10px;color:var(--ink3);font-style:italic">(previsto)</span>`:''}
+        <span style="color:var(--ink2)">${fmtS(f.fecha_encargo)}</span>
+        <span style="color:var(--ink3)">Entrega: ${fmtS(f.fecha_entrega)}</span>
+        <span style="flex:1;color:var(--ink2)">${f.notas}</span>
+        <span class="fest fe-${f.estado}">${ELBL[f.estado]||f.estado}</span>
+      </div>`;
+    }).join('');
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // GANTT
-// ═══════════════════════════════════
+// ═══════════════════════════
 const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
-function renderGantt(mode) {
+function renderGantt(mode){
   const td=today();
   const base=new Date(currentGantt.getFullYear(),currentGantt.getMonth(),1);
   let days=[],months=[];
-  if(mode==='mes'){
-    // 8 weeks (56 days) from monday
-    const mStart=getMonday(new Date(currentGantt));
-    for(let wi=0;wi<8;wi++){
-      const wStart=addDays(mStart,wi*7);
-      for(let di=0;di<7;di++) days.push(addDays(wStart,di));
-    }
-    // Build month groups for header
-    let curMonth=-1;
-    days.forEach(d=>{
-      if(d.getMonth()!==curMonth){
-        curMonth=d.getMonth();
-        months.push({label:MESES[d.getMonth()]+' '+d.getFullYear(),span:0});
-      }
-      months[months.length-1].span++;
-    });
-  } else {
-    const nMonths={trim:3,sem:6}[mode];
-    for(let mi=0;mi<nMonths;mi++){
-      const d=new Date(base.getFullYear(),base.getMonth()+mi,1);
-      const dim=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();
-      months.push({label:MESES[d.getMonth()]+(nMonths>1?` ${d.getFullYear()}`:''),span:dim});
-      for(let di=1;di<=dim;di++) days.push(new Date(d.getFullYear(),d.getMonth(),di));
-    }
-  }
 
   if(mode==='mes'){
-    // 8 weeks from current monday
     const mStart=getMonday(new Date(currentGantt));
-    const mEnd=addDays(mStart,55);
-    document.getElementById('mes-title').textContent=`8 SEMANAS: ${fmtS(isoDate(mStart))} — ${fmtS(isoDate(mEnd))}`;
-  } else if(mode==='trim') document.getElementById('trim-title').textContent=`${MESES[base.getMonth()]} – ${MESES[new Date(base.getFullYear(),base.getMonth()+2,1).getMonth()]} ${base.getFullYear()}`;
-  else document.getElementById('sem-title').textContent=`${MESES[base.getMonth()]} – ${MESES[new Date(base.getFullYear(),base.getMonth()+5,1).getMonth()]} ${base.getFullYear()}`;
+    for(let wi=0;wi<8;wi++){const wS=addDays(mStart,wi*7);for(let di=0;di<7;di++)days.push(addDays(wS,di));}
+    let curM=-1;days.forEach(d=>{if(d.getMonth()!==curM){curM=d.getMonth();months.push({label:MESES[d.getMonth()]+' '+d.getFullYear(),span:0});}months[months.length-1].span++;});
+    const mEnd=addDays(days[0],55);
+    document.getElementById('mes-title').textContent=`8 SEMANAS: ${fmtS(isoDate(days[0]))} — ${fmtS(isoDate(mEnd))}`;
+  } else {
+    const nM={trim:3,sem:6}[mode];
+    for(let mi=0;mi<nM;mi++){const d=new Date(base.getFullYear(),base.getMonth()+mi,1);const dim=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();months.push({label:MESES[d.getMonth()]+(nM>1?` ${d.getFullYear()}`:''),span:dim});for(let di=1;di<=dim;di++)days.push(new Date(d.getFullYear(),d.getMonth(),di));}
+    if(mode==='trim')document.getElementById('trim-title').textContent=`${MESES[base.getMonth()]} – ${MESES[new Date(base.getFullYear(),base.getMonth()+2,1).getMonth()]} ${base.getFullYear()}`;
+    else document.getElementById('sem-title').textContent=`${MESES[base.getMonth()]} – ${MESES[new Date(base.getFullYear(),base.getMonth()+5,1).getMonth()]} ${base.getFullYear()}`;
+  }
 
   const tid={mes:'gt-mes',trim:'gt-trim',sem:'gt-sem'}[mode];
   let h='<thead>';
@@ -942,54 +915,98 @@ function renderGantt(mode) {
   });
   h+='</tr></thead><tbody>';
 
-  const vf=db.fases.filter(f=>days.some(d=>inRange(d,f.fecha_inicio,f.fecha_fin)));
-  if(!vf.length) h+=`<tr><td colspan="${days.length+1}"><div class="empty"><div class="empty-i">▦</div>Sin trabajos en este período</div></td></tr>`;
+  // Show ALL projects — with fases in range, and empty rows for those without
+  db.proyectos.forEach(p=>{
+    const pFases=db.fases.filter(f=>f.proyecto_id===p.id&&days.some(d=>inRange(d,f.fecha_inicio,f.fecha_fin)));
+    const pFab=db.fabricacion.filter(f=>f.proyecto_id===p.id);
 
-  vf.forEach(f=>{
-    const p=pById(f.proyecto_id),nc=p.estado==='no_confirmado';
-    h+=`<tr><td class="gi" onclick="openFaseEdit('${f.id}')">
-      <div class="gp">${p.cliente} — ${p.lugar}</div>
-      <div class="gfn">${f.nombre}</div>
-      <div class="gfw">${f.trabajadores.map(wFirst).join(', ')||'Sin asignar'}</div>
-    </td>`;
-    days.forEach(d=>{
-      const it=d.getTime()===td.getTime(),we=d.getDay()===0||d.getDay()===6;
-      const inf=inRange(d,f.fecha_inicio,f.fecha_fin);
-      const isSt=isoDate(d)===f.fecha_inicio,isEn=isoDate(d)===f.fecha_fin;
-      h+=`<td class="gc${it?' g-today':we?' g-we':''}">`;
-      if(inf){
-        const rL=isSt?'3px':'0',rR=isEn?'3px':'0';
-        h+=`<div class="gbar s-${f.estado}${nc?' nc':''}" style="border-radius:${rL} ${rR} ${rR} ${rL};left:${isSt?'2px':'0'};right:${isEn?'2px':'0'}" onclick="openFaseEdit('${f.id}')" title="${p.codigo}: ${f.nombre}"></div>`;
-      }
-      h+='</td>';
+    if(pFases.length===0){
+      // Project has no fases in this range — show dimmed row
+      h+=`<tr><td class="gi gi-empty" onclick="openFaseModalForProy('${p.id}')">
+        <div class="gp">${p.cliente} — ${p.lugar}</div>
+        <div class="gfn">${p.codigo} · Sin fases en este período</div>
+      </td>`;
+      days.forEach(d=>{
+        const it=d.getTime()===td.getTime(),we=d.getDay()===0||d.getDay()===6;
+        h+=`<td class="gc${it?' g-today':we?' g-we':''}">`;
+        // Still show fab bars for this project
+        pFab.forEach(fab=>{
+          const fini=parseDate(fab.fecha_encargo||fab.fecha_entrega);
+          const ffin=parseDate(fab.fecha_entrega||fab.fecha_encargo);
+          if(fini&&ffin&&inRange(d,fab.fecha_encargo||fab.fecha_entrega,fab.fecha_entrega||fab.fecha_encargo)){
+            const isFuture=fini>td;
+            h+=`<div class="gbar-fab${isFuture?' future':''}" style="left:0;right:0" title="Fabricación: ${fab.notas}"></div>`;
+          }
+        });
+        h+='</td>';
+      });
+      h+='</tr>';
+      return;
+    }
+
+    // Project has fases — show one row per fase
+    pFases.forEach(f=>{
+      const nc=p.estado==='no_confirmado';
+      h+=`<tr><td class="gi" onclick="openFaseEdit('${f.id}')">
+        <div class="gp">${p.cliente} — ${p.lugar}</div>
+        <div class="gfn">${f.nombre}</div>
+        <div class="gfw">${f.trabajadores.map(wFirst).join(', ')||'Sin asignar'}</div>
+      </td>`;
+      days.forEach(d=>{
+        const it=d.getTime()===td.getTime(),we=d.getDay()===0||d.getDay()===6;
+        const inf=inRange(d,f.fecha_inicio,f.fecha_fin);
+        const isSt=isoDate(d)===f.fecha_inicio,isEn=isoDate(d)===f.fecha_fin;
+        h+=`<td class="gc${it?' g-today':we?' g-we':''}">`;
+        if(inf){
+          const rL=isSt?'3px':'0',rR=isEn?'3px':'0';
+          // Label inside bar — show fase name + workers
+          const lbl=`${f.nombre}${f.trabajadores.length?' · '+f.trabajadores.map(wFirst).join(', '):''}`;
+          h+=`<div class="gbar s-${f.estado}${nc?' nc':''}" style="border-radius:${rL} ${rR} ${rR} ${rL};left:${isSt?'2px':'0'};right:${isEn?'2px':'0'}" onclick="openFaseEdit('${f.id}')" title="${p.codigo}: ${lbl}">
+            ${isSt?`<span class="gbar-label">${lbl}</span>`:''}
+          </div>`;
+        }
+        // Fab bars
+        pFab.forEach(fab=>{
+          const fini=parseDate(fab.fecha_encargo||fab.fecha_entrega);
+          const ffin=parseDate(fab.fecha_entrega||fab.fecha_encargo);
+          if(fini&&ffin&&inRange(d,fab.fecha_encargo||fab.fecha_entrega,fab.fecha_entrega||fab.fecha_encargo)){
+            const isFuture=fini>td;
+            h+=`<div class="gbar-fab${isFuture?' future':''}" style="left:0;right:0" title="${fab.tipo}: ${fab.notas}"></div>`;
+          }
+        });
+        h+='</td>';
+      });
+      h+='</tr>';
     });
-    h+='</tr>';
   });
+
+  if(!db.proyectos.length) h+=`<tr><td colspan="${days.length+1}"><div class="empty"><div class="empty-i">▦</div>Sin proyectos</div></td></tr>`;
   h+='</tbody>';
   document.getElementById(tid).innerHTML=h;
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // PROJECTS
-// ═══════════════════════════════════
-function renderProjects() {
+// ═══════════════════════════
+function renderProjects(){
   const el=document.getElementById('proj-list');
-  const td=today();
-  if(!db.proyectos.length){el.innerHTML='<div class="empty"><div class="empty-i">◈</div>Sin proyectos. Crea el primero.</div>';return;}
-  el.innerHTML=db.proyectos.map(p=>{
+  const q=(document.getElementById('proj-search-input')?.value||'').toLowerCase();
+  let proyectos=db.proyectos;
+  if(q) proyectos=proyectos.filter(p=>(p.codigo+p.cliente+p.lugar).toLowerCase().includes(q));
+  if(!proyectos.length){el.innerHTML='<div class="empty"><div class="empty-i">◈</div>'+(q?'Sin resultados':'Sin proyectos. Crea el primero.')+'</div>';return;}
+  el.innerHTML=proyectos.map(p=>{
     const fases=db.fases.filter(f=>f.proyecto_id===p.id);
     const pend=db.comentarios.filter(c=>c.proyecto_id===p.id&&c.estado==='pendiente').length;
-    // Expandable fases list per project
-    const fasesHtml=fases.map(f=>`
-      <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);font-size:11px">
-        <span style="width:8px;height:8px;border-radius:50%;background:${{en_curso:'var(--green)',previsto:'var(--blue)',afectado:'var(--yellow)',completado:'var(--ink3)'}[f.estado]||'var(--ink3)'};flex-shrink:0;display:inline-block"></span>
-        <span style="flex:1;font-weight:500">${f.nombre}</span>
-        <span style="color:var(--ink2)">${fmtS(f.fecha_inicio)} → ${fmtS(f.fecha_fin)}</span>
-        <span style="color:var(--ink3)">${f.trabajadores.map(wFirst).join(', ')||'Sin asignar'}</span>
-        <button class="btn bg bxs" onclick="event.stopPropagation();openFaseEdit('${f.id}')">✎</button>
-      </div>`).join('');
+    const SCOLS={en_curso:'var(--green)',previsto:'var(--blue)',afectado:'var(--yellow)',completado:'var(--ink3)'};
+    const fasesHtml=fases.map(f=>`<div class="pexp-fase">
+      <span style="width:8px;height:8px;border-radius:50%;background:${SCOLS[f.estado]||'var(--ink3)'};flex-shrink:0;display:inline-block"></span>
+      <span style="flex:1;font-weight:500">${f.nombre}</span>
+      <span style="color:var(--ink2)">${fmtS(f.fecha_inicio)} → ${fmtS(f.fecha_fin)}</span>
+      <span style="color:var(--ink3);min-width:120px;text-align:right">${f.trabajadores.map(wFirst).join(', ')||'Sin asignar'}</span>
+      <button class="btn bg bxs" onclick="event.stopPropagation();openFaseEdit('${f.id}')">✎</button>
+    </div>`).join('');
     return `<div style="border-bottom:1px solid var(--border)">
-      <div class="plr" onclick="toggleProjExpand('${p.id}')">
+      <div class="plr" onclick="toggleProjExpand('${p.id}')" oncontextmenu="showCtx(event,'${p.id}')">
         <div class="pcod">${p.codigo}</div>
         <div><strong>${p.cliente}</strong> <span style="color:var(--ink2)">— ${p.lugar}</span></div>
         <div><span class="pest pe-${p.estado}"><span class="pedot"></span>${p.estado.replace('_',' ')}</span></div>
@@ -1000,52 +1017,44 @@ function renderProjects() {
           <button class="btn bg bxs" onclick="event.stopPropagation();openFaseModalForProy('${p.id}')">+ Fase</button>
         </div>
       </div>
-      <div id="pexp-${p.id}" style="display:none;padding:8px 16px 4px;background:var(--bg)">
+      <div class="pexp" id="pexp-${p.id}">
         ${fasesHtml||'<div style="color:var(--ink3);font-size:11px;padding:6px 0">Sin fases — añade la primera</div>'}
       </div>
     </div>`;
   }).join('');
 }
 
-// ═══════════════════════════════════
+function toggleProjExpand(pid){const el=document.getElementById('pexp-'+pid);if(el)el.style.display=el.style.display==='block'?'none':'block';}
+
+// ═══════════════════════════
 // WORKERS
-// ═══════════════════════════════════
-function renderWorkers() {
+// ═══════════════════════════
+function renderWorkers(){
   const td=today();
   document.getElementById('wgrid').innerHTML=db.trabajadores.map(w=>{
     const unavail=w.disponible!=='disponible';
-    const fases=db.fases.filter(f=>f.trabajadores.includes(w.id)&&parseDate(f.fecha_fin)>=td&&f.estado!=='completado')
-      .sort((a,b)=>parseDate(a.fecha_inicio)-parseDate(b.fecha_inicio)).slice(0,3);
+    const fases=db.fases.filter(f=>f.trabajadores.includes(w.id)&&parseDate(f.fecha_fin)>=td&&f.estado!=='completado').sort((a,b)=>parseDate(a.fecha_inicio)-parseDate(b.fecha_inicio)).slice(0,3);
     const bc={interno:'wbi',externo:'wbe',ett:'wbett'}[w.tipo]||'wbi';
     const bl={interno:'Interno',externo:'Externo',ett:'ETT'}[w.tipo]||w.tipo;
     return `<div class="wcard${unavail?' unavail':''}">
       <div class="wch">
         <div class="wav" style="background:${wCol(w.id)}">${w.nombre.split(' ').map(n=>n[0]).join('').slice(0,2)}</div>
-        <div style="flex:1">
-          <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
-            <span class="wname">${w.nombre}</span>
-            <span class="wbadge ${bc}">${bl}</span>
-          </div>
-          <div class="wmeta">${w.empresa||'Plantilla propia'}</div>
-        </div>
+        <div style="flex:1"><div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap"><span class="wname">${w.nombre}</span><span class="wbadge ${bc}">${bl}</span></div><div class="wmeta">${w.empresa||'Plantilla propia'}</div></div>
         <button class="btn bg bxs" onclick="openWorkerEdit('${w.id}')">✎</button>
       </div>
       ${unavail?`<div class="ubanner">⛔ ${w.disponible.replace('_',' ')}${w.disp_desde?' · '+fmtS(w.disp_desde)+'–'+fmtS(w.disp_hasta):''}</div>`:''}
-      <div class="wfases">
-        ${!fases.length?`<div class="wfe">Disponible — sin asignaciones próximas</div>`
-          :fases.map(f=>{const p=pById(f.proyecto_id);return `<div class="wfi"><div class="wfp">${p.cliente} — ${p.lugar}</div><div style="font-size:11px;color:var(--ink2)">${f.nombre}</div><div class="wfd">${fmtS(f.fecha_inicio)} → ${fmtS(f.fecha_fin)}</div></div>`;}).join('')}
-      </div>
+      <div class="wfases">${!fases.length?`<div class="wfe">Disponible — sin asignaciones próximas</div>`:fases.map(f=>{const p=pById(f.proyecto_id);return `<div class="wfi"><div class="wfp">${p.cliente} — ${p.lugar}</div><div style="font-size:11px;color:var(--ink2)">${f.nombre}</div><div class="wfd">${fmtS(f.fecha_inicio)} → ${fmtS(f.fecha_fin)}</div></div>`;}).join('')}</div>
     </div>`;
-  }).join('')||'<div class="empty" style="grid-column:1/-1"><div class="empty-i">◉</div>Sin trabajadores. Añade el primero.</div>';
+  }).join('')||'<div class="empty" style="grid-column:1/-1"><div class="empty-i">◉</div>Sin trabajadores.</div>';
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // FABRICACION
-// ═══════════════════════════════════
-function renderFab() {
+// ═══════════════════════════
+function renderFab(){
   const ELBL={pendiente:'⚠ Pendiente',encargado:'→ Encargado',en_fabricacion:'⚙ En fabricación',entregado:'✔ Entregado'};
   const el=document.getElementById('fab-list');
-  if(!db.fabricacion.length){el.innerHTML='<div class="empty"><div class="empty-i">⚙</div>Sin elementos registrados</div>';return;}
+  if(!db.fabricacion.length){el.innerHTML='<div class="empty"><div class="empty-i">⚙</div>Sin elementos</div>';return;}
   el.innerHTML=db.fabricacion.map(f=>{
     const p=pById(f.proyecto_id);
     return `<div class="fabrow" onclick="openFabEdit('${f.id}')">
@@ -1059,27 +1068,21 @@ function renderFab() {
   }).join('');
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // ALERTS
-// ═══════════════════════════════════
-function renderAlerts() {
+// ═══════════════════════════
+function renderAlerts(){
   const alerts=[];
   const td=today(),soon=addDays(td,10);
-
   db.proyectos.filter(p=>p.estado==='no_confirmado').forEach(p=>{
-    const next=db.fases.filter(f=>f.proyecto_id===p.id&&parseDate(f.fecha_inicio)>=td)
-      .sort((a,b)=>parseDate(a.fecha_inicio)-parseDate(b.fecha_inicio))[0];
-    if(next&&parseDate(next.fecha_inicio)<=soon)
-      alerts.push({t:'ad',i:'⚠',title:`${p.codigo} sin confirmar`,txt:`${p.cliente} — ${p.lugar} tiene fase el ${fmtS(next.fecha_inicio)} y no está confirmado.`});
+    const next=db.fases.filter(f=>f.proyecto_id===p.id&&parseDate(f.fecha_inicio)>=td).sort((a,b)=>parseDate(a.fecha_inicio)-parseDate(b.fecha_inicio))[0];
+    if(next&&parseDate(next.fecha_inicio)<=soon) alerts.push({t:'ad',i:'⚠',title:`${p.codigo} sin confirmar`,txt:`${p.cliente} — ${p.lugar} tiene fase el ${fmtS(next.fecha_inicio)} y no está confirmado.`});
   });
-
   db.fabricacion.filter(f=>f.estado==='pendiente').forEach(f=>{
     const p=pById(f.proyecto_id);
-    const next=db.fases.filter(fa=>fa.proyecto_id===f.proyecto_id&&parseDate(fa.fecha_inicio)>=td)
-      .sort((a,b)=>parseDate(a.fecha_inicio)-parseDate(b.fecha_inicio))[0];
+    const next=db.fases.filter(fa=>fa.proyecto_id===f.proyecto_id&&parseDate(fa.fecha_inicio)>=td).sort((a,b)=>parseDate(a.fecha_inicio)-parseDate(b.fecha_inicio))[0];
     if(next) alerts.push({t:'aw',i:'⚙',title:`Fabricación sin encargar — ${p.codigo}`,txt:`Pendiente para ${p.cliente} (${p.lugar}). Próxima fase: ${fmtS(next.fecha_inicio)}.`});
   });
-
   db.trabajadores.forEach(w=>{
     const wf=db.fases.filter(f=>f.trabajadores.includes(w.id)&&f.estado!=='completado');
     for(let i=0;i<wf.length;i++) for(let j=i+1;j<wf.length;j++){
@@ -1090,107 +1093,117 @@ function renderAlerts() {
       }
     }
   });
-
   db.fases.filter(f=>f.estado!=='completado'&&!f.trabajadores.length).forEach(f=>{
     const p=pById(f.proyecto_id);
     alerts.push({t:'aw',i:'◈',title:`Fase sin asignar — ${p.codigo}`,txt:`"${f.nombre}" del ${fmtS(f.fecha_inicio)} al ${fmtS(f.fecha_fin)}.`});
   });
-
   db.trabajadores.filter(w=>w.disponible!=='disponible').forEach(w=>{
-    const cf=db.fases.filter(f=>{
-      if(!f.trabajadores.includes(w.id)||f.estado==='completado') return false;
-      if(!w.disp_desde||!w.disp_hasta) return true;
-      return parseDate(f.fecha_inicio)<=parseDate(w.disp_hasta)&&parseDate(f.fecha_fin)>=parseDate(w.disp_desde);
-    });
+    const cf=db.fases.filter(f=>{if(!f.trabajadores.includes(w.id)||f.estado==='completado')return false;if(!w.disp_desde||!w.disp_hasta)return true;return parseDate(f.fecha_inicio)<=parseDate(w.disp_hasta)&&parseDate(f.fecha_fin)>=parseDate(w.disp_desde);});
     if(cf.length) alerts.push({t:'ad',i:'⛔',title:`${w.nombre} no disponible`,txt:`Marcado como "${w.disponible}" pero tiene ${cf.length} fase(s) asignadas.`});
   });
-
   const cnt=alerts.length;
   const badge=document.getElementById('alert-badge');
   badge.textContent=cnt;badge.style.display=cnt?'':'none';
-  document.getElementById('alert-list').innerHTML=!cnt
-    ?'<div class="empty"><div class="empty-i">✔</div>Sin alertas activas</div>'
-    :alerts.map(a=>`<div class="aitem ${a.t}"><span class="aico">${a.i}</span><div><div class="atitle">${a.title}</div><div>${a.txt}</div></div></div>`).join('');
+  document.getElementById('alert-list').innerHTML=!cnt?'<div class="empty"><div class="empty-i">✔</div>Sin alertas activas</div>':alerts.map(a=>`<div class="aitem ${a.t}"><span class="aico">${a.i}</span><div><div class="atitle">${a.title}</div><div>${a.txt}</div></div></div>`).join('');
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
+// CONTEXT MENU
+// ═══════════════════════════
+function showCtx(e,pid){
+  e.preventDefault();
+  ctxProyId=pid;
+  const m=document.getElementById('ctx-menu');
+  document.getElementById('ctx-edit-proy').style.display=pid?'flex':'none';
+  document.getElementById('ctx-add-fase').style.display=pid?'flex':'none';
+  m.style.left=Math.min(e.clientX,window.innerWidth-200)+'px';
+  m.style.top=Math.min(e.clientY,window.innerHeight-200)+'px';
+  m.classList.add('on');
+}
+function closeCtx(){document.getElementById('ctx-menu').classList.remove('on');ctxProyId=null;}
+document.addEventListener('click',()=>closeCtx());
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCtx();});
+
+// ═══════════════════════════
+// SEARCHABLE PROJECT SELECT
+// ═══════════════════════════
+function buildProyDrop(prefix,selId){
+  const inp=document.getElementById(prefix+'-proy-search');
+  const drop=document.getElementById(prefix+'-proy-drop');
+  const val=document.getElementById(prefix+'-proy-val');
+  if(selId){const p=pById(selId);inp.value=`${p.codigo} — ${p.cliente} (${p.lugar})`;val.value=selId;}
+  else{inp.value='';val.value='';}
+  drop.innerHTML=db.proyectos.map(p=>`<div class="proy-opt${p.id===selId?' sel':''}" data-id="${p.id}" data-label="${p.codigo} — ${p.cliente} (${p.lugar})" onmousedown="selectProy('${prefix}','${p.id}',this.dataset.label)">${p.codigo} — ${p.cliente} (${p.lugar})</div>`).join('')||'<div class="proy-opt" style="pointer-events:none;color:var(--ink3)">Sin proyectos — crea uno primero</div>';
+}
+function filterProySel(prefix){
+  const q=document.getElementById(prefix+'-proy-search').value.toLowerCase();
+  const drop=document.getElementById(prefix+'-proy-drop');
+  const opts=db.proyectos.filter(p=>(p.codigo+p.cliente+p.lugar).toLowerCase().includes(q));
+  drop.innerHTML=opts.map(p=>`<div class="proy-opt" data-id="${p.id}" data-label="${p.codigo} — ${p.cliente} (${p.lugar})" onmousedown="selectProy('${prefix}','${p.id}',this.dataset.label)">${p.codigo} — ${p.cliente} (${p.lugar})</div>`).join('')||'<div class="proy-opt" style="pointer-events:none;color:var(--ink3)">Sin resultados</div>';
+  showProyDrop(prefix);
+}
+function selectProy(prefix,id,label){document.getElementById(prefix+'-proy-search').value=label;document.getElementById(prefix+'-proy-val').value=id;hideProyDrop(prefix);}
+function showProyDrop(prefix){document.getElementById(prefix+'-proy-drop').classList.add('on');}
+function hideProyDrop(prefix){document.getElementById(prefix+'-proy-drop').classList.remove('on');}
+function hideProyDropDelayed(prefix){setTimeout(()=>hideProyDrop(prefix),200);}
+function getProyVal(prefix){return document.getElementById(prefix+'-proy-val').value;}
+
+// ═══════════════════════════
 // MODAL HELPERS
-// ═══════════════════════════════════
+// ═══════════════════════════
 function closeModal(id){document.getElementById(id).classList.remove('on');}
-// Modals do NOT close on background click to prevent data loss
+// No close on background click — prevents data loss
 
-function buildProySel(sid,selId){
-  // Replace select with searchable input+datalist combo
-  const el=document.getElementById(sid);
-  el.innerHTML=db.proyectos.map(p=>
-    `<option value="${p.id}"${p.id===selId?' selected':''}>${p.codigo} — ${p.cliente} (${p.lugar})</option>`
-  ).join('')||'<option value="">Sin proyectos — crea uno primero</option>';
-}
-
-function buildWorkerToggles(ini,fin){
+function buildWorkerToggles(selIds,ini,fin){
   document.getElementById('mf-workers').innerHTML=db.trabajadores.map(w=>{
-    const sel=false;
-    const av=ini&&fin?workerAvail(w.id,ini,fin):{ok:true};
-    return `<div class="tpill" data-id="${w.id}" onclick="togglePill(this,'mf-workers')">${w.nombre}</div>`;
-  }).join('');
-}
-
-function buildWorkerTogglesEdit(selectedIds,ini,fin){
-  document.getElementById('mf-workers').innerHTML=db.trabajadores.map(w=>{
-    const sel=selectedIds.includes(w.id);
+    const sel=selIds.includes(w.id);
     const av=ini&&fin?workerAvail(w.id,ini,fin):{ok:true};
     const conf=sel&&!av.ok;
-    return `<div class="tpill${sel?' sel':''}${conf?' conf':''}" data-id="${w.id}" onclick="togglePill(this,'mf-workers')">${w.nombre}</div>`;
+    return `<div class="tpill${sel?' sel':''}${conf?' conf':''}" data-id="${w.id}" onclick="this.classList.toggle('sel');this.classList.remove('conf');updateWarn()">${w.nombre}</div>`;
   }).join('');
-  updateWarn();
+  if(selIds.length||ini) updateWarn();
 }
-
-function togglePill(el,cid){el.classList.toggle('sel');el.classList.remove('conf');updateWarn();}
-
 function updateWarn(){
-  const ini=document.getElementById('mf-ini').value;
-  const fin=document.getElementById('mf-fin').value;
+  const ini=document.getElementById('mf-ini').value,fin=document.getElementById('mf-fin').value;
   const warns=[];
-  // reset all conf styles first
   document.querySelectorAll('#mf-workers .tpill').forEach(el=>el.classList.remove('conf'));
   document.querySelectorAll('#mf-workers .tpill.sel').forEach(el=>{
     const wid=el.dataset.id;
-    if(ini&&fin){
-      const av=workerAvail(wid,ini,fin);
-      if(!av.ok){warns.push(`<strong>${wById(wid).nombre}:</strong> ${av.reason}`);el.classList.add('conf');}
-    }
+    if(ini&&fin){const av=workerAvail(wid,ini,fin);if(!av.ok){warns.push(`<strong>${wById(wid).nombre}:</strong> ${av.reason}`);el.classList.add('conf');}}
   });
   const wb=document.getElementById('mf-warn');
   if(warns.length){wb.style.display='';wb.innerHTML='⚠ Aviso (puedes guardar igualmente):<br>'+warns.join('<br>');}
   else wb.style.display='none';
 }
+function getSelWorkers(){return[...document.querySelectorAll('#mf-workers .tpill.sel')].map(e=>e.dataset.id);}
+function toggleDispDates(){const v=document.getElementById('mw-disp').value,nd=v!=='disponible';document.getElementById('mw-dates').style.display=nd?'grid':'none';document.getElementById('mw-mot-row').style.display=nd?'':'none';}
 
-function getSelWorkers(){return [...document.querySelectorAll('#mf-workers .tpill.sel')].map(e=>e.dataset.id);}
-function toggleDispDates(){
-  const v=document.getElementById('mw-disp').value,nd=v!=='disponible';
-  document.getElementById('mw-dates').style.display=nd?'grid':'none';
-  document.getElementById('mw-mot-row').style.display=nd?'':'none';
-}
-
-// ═══════════════════════════════════
+// ═══════════════════════════
 // FASE MODAL
-// ═══════════════════════════════════
-function openFaseModal(pid){
-  document.getElementById('mf-title').textContent='NUEVA FASE';
+// ═══════════════════════════
+function resetFaseModal(){
   document.getElementById('mf-id').value='';
-  ['mf-nom','mf-ini','mf-fin','mf-desc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('mf-nom').value='';
+  document.getElementById('mf-ini').value='';
+  document.getElementById('mf-fin').value='';
+  document.getElementById('mf-desc').value='';
   document.getElementById('mf-est').value='previsto';
   document.getElementById('mf-del').style.display='none';
   document.getElementById('mf-warn').style.display='none';
-  if(document.getElementById('mf-desc-count')) document.getElementById('mf-desc-count').textContent='0';
-  buildProySel('mf-proy',pid||null);
-  buildWorkerToggles('','');
-  ['mf-ini','mf-fin'].forEach(id=>document.getElementById(id).addEventListener('change',updateWarn));
+  document.getElementById('mf-date-err').style.display='none';
+  document.getElementById('mf-desc-cnt').textContent='0/500';
+}
+function openFaseModal(pid){
+  resetFaseModal();
+  document.getElementById('mf-title').textContent='NUEVA FASE';
+  buildProyDrop('mf',pid||null);
+  buildWorkerToggles([],null,null);
   document.getElementById('m-fase').classList.add('on');
 }
 function openFaseModalForProy(pid){openFaseModal(pid);}
 function openFaseEdit(id){
   const f=db.fases.find(x=>x.id===id);if(!f)return;
+  resetFaseModal();
   document.getElementById('mf-title').textContent='EDITAR FASE';
   document.getElementById('mf-id').value=f.id;
   document.getElementById('mf-nom').value=f.nombre;
@@ -1199,27 +1212,23 @@ function openFaseEdit(id){
   document.getElementById('mf-desc').value=f.descripcion||'';
   document.getElementById('mf-est').value=f.estado;
   document.getElementById('mf-del').style.display='';
-  document.getElementById('mf-warn').style.display='none';
-  buildProySel('mf-proy',f.proyecto_id);
-  buildWorkerTogglesEdit(f.trabajadores,f.fecha_inicio,f.fecha_fin);
-  ['mf-ini','mf-fin'].forEach(id=>document.getElementById(id).addEventListener('change',updateWarn));
+  document.getElementById('mf-desc-cnt').textContent=`${(f.descripcion||'').length}/500`;
+  buildProyDrop('mf',f.proyecto_id);
+  buildWorkerToggles(f.trabajadores,f.fecha_inicio,f.fecha_fin);
   document.getElementById('m-fase').classList.add('on');
 }
 async function saveFase(){
+  if(!validateDates('mf'))return;
   const id=document.getElementById('mf-id').value;
-  const body={id:id||newId(),proyecto_id:document.getElementById('mf-proy').value,
-    nombre:document.getElementById('mf-nom').value.trim(),
-    fecha_inicio:document.getElementById('mf-ini').value,
-    fecha_fin:document.getElementById('mf-fin').value,
-    descripcion:document.getElementById('mf-desc').value.trim(),
-    estado:document.getElementById('mf-est').value,
-    trabajadores:getSelWorkers()};
-  if(!body.nombre){alert('El nombre es obligatorio');return;}
-  if(!body.proyecto_id){alert('Selecciona un proyecto');return;}
-  if(id) db.fases=db.fases.map(f=>f.id===id?body:f);
-  else db.fases.push(body);
-  closeModal('m-fase');
-  await save('fases');renderAll();
+  const proyId=getProyVal('mf');
+  if(!proyId){alert('Selecciona un proyecto');return;}
+  const nombre=document.getElementById('mf-nom').value.trim();
+  if(!nombre){alert('El nombre es obligatorio');return;}
+  const ini=document.getElementById('mf-ini').value,fin=document.getElementById('mf-fin').value;
+  if(!ini||!fin){alert('Las fechas son obligatorias');return;}
+  const body={id:id||newId(),proyecto_id:proyId,nombre,fecha_inicio:ini,fecha_fin:fin,descripcion:document.getElementById('mf-desc').value.trim(),estado:document.getElementById('mf-est').value,trabajadores:getSelWorkers()};
+  if(id)db.fases=db.fases.map(f=>f.id===id?body:f);else db.fases.push(body);
+  closeModal('m-fase');await save('fases');renderAll();
 }
 async function deleteFase(){
   const id=document.getElementById('mf-id').value;
@@ -1228,9 +1237,9 @@ async function deleteFase(){
   closeModal('m-fase');await save('fases');renderAll();
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // PROYECTO MODAL
-// ═══════════════════════════════════
+// ═══════════════════════════
 function openProyModal(){
   document.getElementById('mp-title').textContent='NUEVO PROYECTO';
   document.getElementById('mp-id').value='';
@@ -1238,6 +1247,7 @@ function openProyModal(){
   document.getElementById('mp-est').value='confirmado';
   document.getElementById('mp-del').style.display='none';
   document.getElementById('mp-comm-sec').style.display='none';
+  document.getElementById('mp-notas-cnt').textContent='0/500';
   document.getElementById('m-proy').classList.add('on');
 }
 function openProyEdit(id){
@@ -1249,6 +1259,7 @@ function openProyEdit(id){
   document.getElementById('mp-lug').value=p.lugar;
   document.getElementById('mp-est').value=p.estado;
   document.getElementById('mp-notas').value=p.notas||'';
+  document.getElementById('mp-notas-cnt').textContent=`${(p.notas||'').length}/500`;
   document.getElementById('mp-del').style.display='';
   document.getElementById('mp-comm-sec').style.display='';
   document.getElementById('mp-cresp').innerHTML=db.trabajadores.map(w=>`<option value="${w.nombre}">${w.nombre}</option>`).join('');
@@ -1257,25 +1268,19 @@ function openProyEdit(id){
 }
 function renderComments(pid){
   const cs=db.comentarios.filter(c=>c.proyecto_id===pid).sort((a,b)=>b.fecha.localeCompare(a.fecha));
-  document.getElementById('mp-clist').innerHTML=cs.map(c=>`
-    <div class="citem${c.estado==='resuelto'?' res':''}">
-      <span class="cdot ${c.estado}"></span>
-      <div class="cbody">
-        <div class="ctxt">${c.texto}</div>
-        <div class="cmeta">${c.responsable} · ${c.fecha} · ${c.estado}</div>
-      </div>
-      <div style="display:flex;gap:4px">
-        ${c.estado==='pendiente'?`<button class="btn bg bxs" onclick="resolveComment('${c.id}')">✔</button>`:''}
-        <button class="btn bd bxs" onclick="deleteComment('${c.id}')">✕</button>
-      </div>
-    </div>`).join('')||'<div style="color:var(--ink3);font-size:12px;font-style:italic">Sin comentarios aún.</div>';
+  document.getElementById('mp-clist').innerHTML=cs.map(c=>`<div class="citem${c.estado==='resuelto'?' res':''}">
+    <span class="cdot ${c.estado}"></span>
+    <div class="cbody"><div class="ctxt">${c.texto}</div><div class="cmeta">${c.responsable} · ${c.fecha} · ${c.estado}</div></div>
+    <div style="display:flex;gap:4px">
+      ${c.estado==='pendiente'?`<button class="btn bg bxs" onclick="resolveComment('${c.id}')">✔</button>`:''}
+      <button class="btn bd bxs" onclick="deleteComment('${c.id}')">✕</button>
+    </div>
+  </div>`).join('')||'<div style="color:var(--ink3);font-size:12px;font-style:italic">Sin comentarios aún.</div>';
 }
 async function addComment(){
   const pid=document.getElementById('mp-id').value;if(!pid)return;
   const txt=document.getElementById('mp-ctxt').value.trim();if(!txt)return;
-  const c={id:newId(),proyecto_id:pid,texto:txt,
-    responsable:document.getElementById('mp-cresp').value,
-    estado:'pendiente',fecha:new Date().toLocaleDateString('es-ES'),autor:currentUser?.name||'?'};
+  const c={id:newId(),proyecto_id:pid,texto:txt,responsable:document.getElementById('mp-cresp').value,estado:'pendiente',fecha:new Date().toLocaleDateString('es-ES'),autor:currentUser?.name||'?'};
   db.comentarios.push(c);
   document.getElementById('mp-ctxt').value='';
   renderComments(pid);await save('comentarios');renderProjects();
@@ -1292,28 +1297,24 @@ async function deleteComment(id){
 }
 async function saveProyecto(){
   const id=document.getElementById('mp-id').value;
-  const body={id:id||newId(),codigo:document.getElementById('mp-cod').value.trim(),
-    cliente:document.getElementById('mp-cli').value.trim(),lugar:document.getElementById('mp-lug').value.trim(),
-    estado:document.getElementById('mp-est').value,notas:document.getElementById('mp-notas').value.trim()};
+  const body={id:id||newId(),codigo:document.getElementById('mp-cod').value.trim(),cliente:document.getElementById('mp-cli').value.trim(),lugar:document.getElementById('mp-lug').value.trim(),estado:document.getElementById('mp-est').value,notas:document.getElementById('mp-notas').value.trim()};
   if(!body.codigo||!body.cliente){alert('Código y cliente son obligatorios');return;}
-  if(id) db.proyectos=db.proyectos.map(p=>p.id===id?body:p);
-  else db.proyectos.push(body);
+  if(id)db.proyectos=db.proyectos.map(p=>p.id===id?body:p);else db.proyectos.push(body);
   closeModal('m-proy');await save('proyectos');renderAll();
 }
 async function deleteProyecto(){
   const id=document.getElementById('mp-id').value;
-  if(!confirm('¿Eliminar proyecto y todas sus fases?'))return;
+  if(!confirm('¿Eliminar proyecto y todas sus fases y comentarios?'))return;
   db.proyectos=db.proyectos.filter(p=>p.id!==id);
   db.fases=db.fases.filter(f=>f.proyecto_id!==id);
   db.comentarios=db.comentarios.filter(c=>c.proyecto_id!==id);
   closeModal('m-proy');
-  await Promise.all([save('proyectos'),save('fases'),save('comentarios')]);
-  renderAll();
+  await Promise.all([save('proyectos'),save('fases'),save('comentarios')]);renderAll();
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // WORKER MODAL
-// ═══════════════════════════════════
+// ═══════════════════════════
 function openWorkerModal(){
   document.getElementById('mw-title').textContent='NUEVO TRABAJADOR';
   document.getElementById('mw-id').value='';
@@ -1344,16 +1345,10 @@ function openWorkerEdit(id){
 }
 async function saveWorker(){
   const id=document.getElementById('mw-id').value;
-  const body={id:id||newId(),nombre:document.getElementById('mw-nom').value.trim(),
-    tipo:document.getElementById('mw-tipo').value,empresa:document.getElementById('mw-emp').value.trim(),
-    activo:true,disponible:document.getElementById('mw-disp').value,
-    disp_desde:document.getElementById('mw-desde').value,
-    disp_hasta:document.getElementById('mw-hasta').value,
-    disp_mot:document.getElementById('mw-mot').value.trim()};
+  const body={id:id||newId(),nombre:document.getElementById('mw-nom').value.trim(),tipo:document.getElementById('mw-tipo').value,empresa:document.getElementById('mw-emp').value.trim(),activo:true,disponible:document.getElementById('mw-disp').value,disp_desde:document.getElementById('mw-desde').value,disp_hasta:document.getElementById('mw-hasta').value,disp_mot:document.getElementById('mw-mot').value.trim()};
   if(!body.nombre){alert('El nombre es obligatorio');return;}
   if(!id&&db.trabajadores.length>=30){alert('Límite de 30 trabajadores alcanzado.');return;}
-  if(id) db.trabajadores=db.trabajadores.map(w=>w.id===id?body:w);
-  else db.trabajadores.push(body);
+  if(id)db.trabajadores=db.trabajadores.map(w=>w.id===id?body:w);else db.trabajadores.push(body);
   closeModal('m-worker');await save('trabajadores');renderAll();
 }
 async function deleteWorker(){
@@ -1365,9 +1360,9 @@ async function deleteWorker(){
   await Promise.all([save('trabajadores'),save('fases')]);renderAll();
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // FABRICACION MODAL
-// ═══════════════════════════════════
+// ═══════════════════════════
 function openFabModal(){
   document.getElementById('mfab-title').textContent='NUEVO ELEMENTO';
   document.getElementById('mfab-id').value='';
@@ -1375,7 +1370,9 @@ function openFabModal(){
   document.getElementById('mfab-tipo').value='fabricacion';
   document.getElementById('mfab-est').value='pendiente';
   document.getElementById('mfab-del').style.display='none';
-  buildProySel('mfab-proy',null);
+  document.getElementById('mfab-date-err').style.display='none';
+  document.getElementById('mfab-notas-cnt').textContent='0/400';
+  buildProyDrop('mfab',null);
   document.getElementById('m-fab').classList.add('on');
 }
 function openFabEdit(id){
@@ -1387,21 +1384,19 @@ function openFabEdit(id){
   document.getElementById('mfab-ent').value=f.fecha_entrega||'';
   document.getElementById('mfab-est').value=f.estado;
   document.getElementById('mfab-notas').value=f.notas||'';
+  document.getElementById('mfab-notas-cnt').textContent=`${(f.notas||'').length}/400`;
   document.getElementById('mfab-del').style.display='';
-  buildProySel('mfab-proy',f.proyecto_id);
+  document.getElementById('mfab-date-err').style.display='none';
+  buildProyDrop('mfab',f.proyecto_id);
   document.getElementById('m-fab').classList.add('on');
 }
 async function saveFab(){
+  if(!validateDates('mfab'))return;
   const id=document.getElementById('mfab-id').value;
-  const body={id:id||newId(),proyecto_id:document.getElementById('mfab-proy').value,
-    tipo:document.getElementById('mfab-tipo').value,
-    fecha_encargo:document.getElementById('mfab-enc').value,
-    fecha_entrega:document.getElementById('mfab-ent').value,
-    estado:document.getElementById('mfab-est').value,
-    notas:document.getElementById('mfab-notas').value.trim()};
-  if(!body.proyecto_id){alert('Selecciona un proyecto');return;}
-  if(id) db.fabricacion=db.fabricacion.map(f=>f.id===id?body:f);
-  else db.fabricacion.push(body);
+  const proyId=getProyVal('mfab');
+  if(!proyId){alert('Selecciona un proyecto');return;}
+  const body={id:id||newId(),proyecto_id:proyId,tipo:document.getElementById('mfab-tipo').value,fecha_encargo:document.getElementById('mfab-enc').value,fecha_entrega:document.getElementById('mfab-ent').value,estado:document.getElementById('mfab-est').value,notas:document.getElementById('mfab-notas').value.trim()};
+  if(id)db.fabricacion=db.fabricacion.map(f=>f.id===id?body:f);else db.fabricacion.push(body);
   closeModal('m-fab');await save('fabricacion');renderAll();
 }
 async function deleteFab(){
@@ -1411,9 +1406,9 @@ async function deleteFab(){
   closeModal('m-fab');await save('fabricacion');renderAll();
 }
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // NAVIGATION
-// ═══════════════════════════════════
+// ═══════════════════════════
 document.querySelectorAll('.nb[data-view]').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
@@ -1422,29 +1417,27 @@ document.querySelectorAll('.nb[data-view]').forEach(btn=>{
     document.getElementById('view-'+btn.dataset.view).classList.add('on');
   });
 });
-
 document.getElementById('pw').addEventListener('click',()=>{currentWeek=addDays(currentWeek,-28);renderWeek();});
 document.getElementById('nw').addEventListener('click',()=>{currentWeek=addDays(currentWeek,28);renderWeek();});
-
-const NAV_MONTHS={trim:3,sem:6};
 [['pm','nm','mes'],['pt','nt','trim'],['ps','ns','sem']].forEach(([pid,nid,mode])=>{
+  const months={mes:8,trim:3,sem:6};
   document.getElementById(pid).addEventListener('click',()=>{
-    if(mode==='mes') currentGantt=addDays(getMonday(new Date(currentGantt)),-56);
-    else currentGantt=new Date(currentGantt.getFullYear(),currentGantt.getMonth()-NAV_MONTHS[mode],1);
+    if(mode==='mes')currentGantt=addDays(getMonday(new Date(currentGantt)),-56);
+    else currentGantt=new Date(currentGantt.getFullYear(),currentGantt.getMonth()-months[mode],1);
     renderGantt(mode);
   });
   document.getElementById(nid).addEventListener('click',()=>{
-    if(mode==='mes') currentGantt=addDays(getMonday(new Date(currentGantt)),56);
-    else currentGantt=new Date(currentGantt.getFullYear(),currentGantt.getMonth()+NAV_MONTHS[mode],1);
+    if(mode==='mes')currentGantt=addDays(getMonday(new Date(currentGantt)),56);
+    else currentGantt=new Date(currentGantt.getFullYear(),currentGantt.getMonth()+months[mode],1);
     renderGantt(mode);
   });
 });
 
-// ═══════════════════════════════════
+// ═══════════════════════════
 // INIT
-// ═══════════════════════════════════
+// ═══════════════════════════
 window.onload=()=>{
-  if(typeof google!=='undefined') initAuth();
+  if(typeof google!=='undefined')initAuth();
   else setTimeout(()=>{if(typeof google!=='undefined')initAuth();else document.querySelector('.login-sub').textContent='Error cargando Google. Comprueba tu conexión.';},2000);
 };
 </script>
